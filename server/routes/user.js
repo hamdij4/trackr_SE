@@ -1,100 +1,98 @@
-module.exports = (router, db, mongojs, jwt, config) => {
+module.exports = (router, mongoose, jwt, config) => {
 
-    router.get('/foodFull', (req, res) => {
-        db.food.find({}, (error, docs) => {
-            if (error) {
-                throw error;
-            }
-            res.json(docs);
-        });
-    });
+    var User = require("../orm/user");
+    var Task = require("../orm/task");
 
-    router.get('/food/:name', (req, res) => {
-        let fname = req.params.name
-
-        db.food.find({ name: fname }, (error, docs) => {
-            if (error) {
-                throw error;
-            }
-            res.json(docs);
-        });
-    });
-
-    router.get('/FoodMenu', (req, res) => {
-        let limit = Number(req.query.limit) || 6;
-        let skip = Number(req.query.skip) || 0;
-        db.food.find({}).skip(skip).limit(limit, (error, docs) => {
-            if (error) {
-                throw error;
-            }
-            res.json(docs);
-        });
-    });
-    router.get('/FoodMenu/:type', (req, res) => {
-        let reqType = req.params.type;
-        let limit = 6;
-        let skip = Number(req.query.skip) || 0;
-        db.food.find({category: reqType}).skip(skip).limit(limit,
+    router.get('/users', (req, res) => {
+        let model = req.body
+        User.find(
+            {}, 
             (error, docs) => {
                 if(error){
-                    console.log("Error at FoodMenu/:type", error)
-                    throw error;
-                }
-                res.json(docs)
-                res.status(200)
-            })
-    })
-
-    router.post('/order/post', (req, res) => {
-        let model = {
-            username  : req.body.username,
-            telephone : req.body.telephone,
-            order : req.body.order,
-            date : getDate(),
-            discount : req.body.discount || 0,
-            price : req.body.price,
-            delivery: req.body.delivery,
-            cashier: getCashier(),
-            driver : getDriver(),
-            paid : req.body.paid || false,
-            serial_no: 'add_rand_later',
-            registered : true
-        }
-        if(req.body.registered == false){
-            model.registered = false;
-            db.order.insertOne(model, (error, docs) => {
-                if (error) {
-                    throw error;
-                }
-                console.log(getDate(), "New order added for ", model.username)
-                res.status(200)
-                res.send({response: 'OK'})
-            });
-        }else {
-            db.user.findOne({username : req.body.username}, (error, docs) => {
-                if(error){
-                    console.log(getDate(), "Error finding user in orders : ", model.username)
+                    console.log(getDate(), "Error logging in for ", model.username, "ERROR : ", error);
+                    res.status(401)
+                    res.send({response: 'FAIL', reason: 'error'})
                 }
                 if(docs){
-                    model.telephone = docs.telephone;
-                    db.order.insertOne(model, (error, docs) => {
-                        if (error) {
-                            throw error;
-                        }
-                        console.log(getDate(), "New order added for ", model.username)
-                        res.status(200)
-                        res.send({response: 'OK'})
-                    });
+                    console.log(getDate(), "New logging by : ", docs.username)
+                    res.status(200)
+                    res.send({response: 'OK', users: docs})
+                } else {
+                    console.log(model, docs, error)
+                    res.status(401)
+                    res.send({response: 'FAIL', reason: 'invalid'})
                 }
-            })
-        }
+            }
+        )
     });
 
-    function getCashier(){
-        return "Mensur"
-    }
-    function getDriver(){
-        return "Amir"
-    }
+    router.get('/tasks', (req, res) => {
+        var token = req.headers["auth"]
+        if (token){
+            var decoded = jwt.verify(token, config.JWT_SECRET)
+            Task.find({user : decoded.id}, (error, docs) => {
+                if(error){
+                    console.log(getDate(), " Fetching tasks ", req.user , error, docs)
+                    res.status(401)
+                    res.send({response: 'FAIL', reason: 'error'})
+                }
+                if (docs) {
+                    console.log(getDate(), "Fetched tasks: ", decoded._id)
+                    res.status(200)
+                    res.send({response: 'OK', tasks: docs})
+                }
+        })
+        } else {
+            console.log(getDate(), " Fetching tasks ", req.user , error, docs)
+            res.status(401)
+            res.send({response: 'FAIL', reason: 'error'})
+        }
+    })
 
+    router.post('/task', (req, res) => {
+
+        var task = new Task ({
+            user: req.body.user,
+            name: req.body.name,
+            description: req.body.description,
+            points: req.body.points,
+            project: req.body.project,
+            due: req.body.due
+        })
+        task.save(task, (error, docs) => {
+            if(error){
+                console.log(getDate(), " Error adding task: ", task )
+                res.status(401)
+                res.send({response: 'FAIL', reason: 'error'})
+            }
+            if (docs) {
+                console.log(getDate(), "Added new task : ", task.name)
+                res.status(200)
+                res.send({response: 'OK'})
+            }
+        })
+    })
+    router.post('/editTask', (req, res) => {
+        Task.findOneAndUpdate({_id: req.body.id}, 
+            { $set:{
+                user: req.body.user,
+                name: req.body.name,
+                description: req.body.description,
+                points: req.body.points,
+                project: req.body.project,
+                due: req.body.due
+            }
+            }, {useFindAndModify: false}, (error, docs) => {
+            if(error){
+                console.log(getDate(), " Error editing task: ", task , error)
+                res.status(401)
+                res.send({response: 'FAIL', reason: 'error'})
+            }
+            if (docs) {
+                console.log(getDate(), "Edited task : ", task.name)
+                res.status(200)
+                res.send({response: 'OK'})
+            }
+        })
+    })
 }

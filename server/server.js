@@ -1,4 +1,3 @@
-const mongojs = require('mongojs')
 const express = require('express')
 const app = express()
 const jwt = require('jsonwebtoken')
@@ -13,14 +12,12 @@ if (!process.env.HEROKU) {
     config = require('./config');
 }
 
-const db = mongojs(process.env.DB_URL || config.DB_URL);
-
 var mongoose = require('mongoose');
 mongoose.connect(process.env.DB_URL || config.DB_URL, {useNewUrlParser: true});
 
 let user_router = express.Router()
-require('./routes/user.js')(user_router, db, mongojs, jwt, config);
-app.use('/visitor', user_router);
+require('./routes/user.js')(user_router, mongoose, jwt, config);
+app.use('/user', user_router);
 
 var User = require("./orm/user");
 app.post('/authenticate', (req, res) => {
@@ -37,6 +34,7 @@ app.post('/authenticate', (req, res) => {
                 let token = jwt.sign (
                     {
                         username : req.body.username,
+                        id: docs._id,
                         type : docs.type,
                         exp: Math.floor(Date.now() / 1000) + 3600
                     },
