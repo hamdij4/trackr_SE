@@ -2,6 +2,9 @@ module.exports = (router, mongoose, jwt, config) => {
 
     var User = require("../orm/user");
     var Task = require("../orm/task");
+    var Habbit = require("../orm/habbit");
+    var Project = require("../orm/project");
+    var Daily = require("../orm/daily");
 
     router.get('/users', (req, res) => {
         let model = req.body
@@ -28,6 +31,7 @@ module.exports = (router, mongoose, jwt, config) => {
 
     router.get('/tasks', (req, res) => {
         var token = req.headers["auth"]
+        console.log(token)
         if (token){
             var decoded = jwt.verify(token, config.JWT_SECRET)
             Task.find({user : decoded.id}, (error, docs) => {

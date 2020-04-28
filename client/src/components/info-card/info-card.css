@@ -1,0 +1,28 @@
+
+
+.task-card{
+    margin-top: 8px;
+    margin-bottom: 8px;
+    background-color: ghostwhite !important;
+}
+
+.card-action-bar{
+    justify-content: end;
+    padding-top: 0px !important;
+}
+
+.column{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.column .icons{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.button{
+    margin: 15px;
+}

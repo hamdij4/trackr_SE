@@ -1,0 +1,26 @@
+.view-container{
+    background-color: #f3f3f3;
+    min-height: 100vh;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-title{
+    height:  30vh;
+}
+
+.task-container{
+    height: 70vh;
+}
+
+.view-card{
+    height: 100%;
+}
+
+.task-card{
+    margin-top: 8px;
+    margin-bottom: 8px;
+    background-color: ghostwhite !important;
+}

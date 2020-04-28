@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 
-const HabbitSchema = mongoose.Schema({
+const ProjectSchema = mongoose.Schema({
     creator: {
         type: String,
         required: true
