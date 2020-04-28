@@ -29,7 +29,7 @@ function LandingScreen() {
         <>
         <div
         className="view-container">
-            <Container>
+            <Container style={{maxWidth: "80%"}}>
                 <Row className = "welcome-title">
                     <Col>
                     <Typography variant="h1" gutterBottom>

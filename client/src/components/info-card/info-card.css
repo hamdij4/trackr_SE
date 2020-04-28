@@ -11,11 +11,29 @@
     padding-top: 0px !important;
 }
 
-.column{
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+    .column{
+        padding-left: 0 !important;
+        padding-right: 0 !important;
 }
 
+.title-row{
+    background-color: lavender;
+    padding: 5px;
+    margin: 0 !important;
+    color: black;
+    max-height: max-content;
+}
+
+.footer-row{
+    background-color: lavender !important;
+    display: flex;
+    justify-content: end;
+    padding-right: 30px;
+}
+.checkbox-custom{
+    display: flex;
+    justify-content: center;
+}
 .column .icons{
     display: flex;
     flex-direction: column;
