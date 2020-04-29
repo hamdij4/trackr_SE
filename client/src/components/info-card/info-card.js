@@ -4,70 +4,89 @@ import './info-card.css'
 import 'typeface-roboto';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Collapse from '@material-ui/core/Collapse';
-import Checkbox from '@material-ui/core/Checkbox';
+import Chip from '@material-ui/core/Chip';
+import DonutSmallIcon from '@material-ui/icons/DonutSmall';
 
 function InfoCard(props) {
 
     const [expanded, setExpanded] = React.useState(false);
     const [checked, setChecked] = React.useState(true);
 
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-      };
-      const handleChange = (event) => {
-        setChecked(event.target.checked);
-      };
+    const getMainColor = () => {
+        if(props.type == 1) {
+            return "#C9A2CA"
+        } else if (props.type == 0){
+            return "#F3BF71"
+        } else if (props.type == 2){
+            return "#95CCA4"
+        } else {
+            return "black"
+        }
+    }  
+    const getAccentColor = () => {
+        if(props.type == 1) {
+            return "#B289B2"
+        } else if (props.type == 0){
+            return "#E3B36B"
+        } else if (props.type == 2){
+            return "#85B592"
+        } else {
+            return "black"
+        }
+    } 
     return (
         <>
-        <Card variant="outlined" className="task-card">
-            <Row className="title-row">
-                          <Typography variant="h6" component="h2">
-                              {props.info.name}
-                          </Typography>
+        <Card variant="outlined" className="task-card"
+            style={{borderColor: getMainColor()}}>
+            <Row>
+                <Col lg={9} md={9} sm={9} className="description-column">
+                    <Row className="title-row">
+                                <Typography variant="h6" component="h2">
+                                    {props.info.name}
+                                </Typography>
+                                <div
+                        className="info-column">
+                                  <Chip 
+                                    className="points-badge"
+                                    label={props.info.points + " pts"} 
+                                    variant="outlined" 
+                                    size="small"
+                                    style={{backgroundColor: getMainColor(), borderColor:  getMainColor()}}/>
+                                </div>
+                    </Row>
+                    <Row className="content-row">
+                            <CardContent
+                                className="card-content">
+                                <div className="description-text">
+                                            {props.info.description + " adding more random words to fill all this stuff in"}
+                                            </div>
+                            </CardContent>
+                    </Row>
+                    <Row 
+                        className="info-column">
+                            Due date and info
+                    </Row>
+            </Col>
+            <Col lg={3} md={3} sm={3}>
+                <Row
+                className="finished-button"
+                style={{ backgroundColor: getMainColor()}}>
+                    <span className="plus-sign"
+                    style={{color: "white", fontSize: "32px", fontWeight: "500", backgroundColor:  getMainColor()}}>
+                        +
+                    </span>
+                </Row>
+                <Row
+                className="info-button"
+                style={{ backgroundColor: getAccentColor()}}>
+                <span className="plus-sign" 
+                style={{color: "white", fontSize: "32px", fontWeight: "500"}}>
+                    -
+                </span>
+                </Row>
+            </Col>
             </Row>
-            <Row className="content-row">
-                <Col lg={3} md={3} sm={3} className="checkbox-custom">
-                    <Checkbox
-                        checked={checked}
-                        onChange={handleChange}
-                        color="default"
-                        inputProps={{ 'aria-label': 'secondary checkbox' }}
-                    />
-                </Col>
-                <Col lg={8} md={8} sm={8} className="column">
-                      <CardContent>
-                          <Typography color="textSecondary" gutterBottom>
-                              {props.info.points} Points
-                          </Typography>
-                      </CardContent>
-                      <CardActions className="card-action-bar">
-                      </CardActions>
-                      <Collapse in={expanded} timeout="auto" unmountOnExit>
-                          <CardContent>
-                          <Typography paragraph>{props.info.description}</Typography>
-                          </CardContent>
-                      </Collapse>
-                </Col>
-            </Row>
-            {/* <Row className="footer-row">
-                                <IconButton
-                                    onClick={handleExpandClick}
-                                    aria-expanded={expanded}
-                                    aria-label="show more"
-                                    >
-                                    <ExpandMoreIcon />
-                                    </IconButton>
-                    {/* <IconButton aria-label="plus-one" className="button">
-                        <AddIcon />
-                    </IconButton>
-
-                    <IconButton aria-label="plus-one" className="button">
-                        <AddIcon />
-                    </IconButton> }
-                    </Row> */}
         </Card>
         </>
     )

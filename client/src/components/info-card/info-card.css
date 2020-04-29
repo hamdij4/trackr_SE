@@ -3,7 +3,10 @@
 .task-card{
     margin-top: 8px;
     margin-bottom: 8px;
-    background-color: ghostwhite !important;
+    background-color: white !important;
+    /* border-color: #C9A2CA !important; */
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
 }
 
 .card-action-bar{
@@ -11,36 +14,77 @@
     padding-top: 0px !important;
 }
 
-    .column{
-        padding-left: 0 !important;
-        padding-right: 0 !important;
+.column{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 
 .title-row{
-    background-color: lavender;
-    padding: 5px;
-    margin: 0 !important;
+    background-color: white;
     color: black;
+    font-size: 28px;
+    font-weight: 300 !important;
+    padding-left: 25px;
+    padding-top: 15px;
+    margin: 0 !important;
     max-height: max-content;
 }
 
-.footer-row{
-    background-color: lavender !important;
-    display: flex;
-    justify-content: end;
-    padding-right: 30px;
-}
-.checkbox-custom{
-    display: flex;
-    justify-content: center;
-}
-.column .icons{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.info-column{
+    color: lightgray;
+    font-size: 12px;
+    padding-left: 25px;
+    margin: 0 !important;
+    padding-bottom: 7px;
+    font-weight: 300 !important;
+    text-align: start !important;
+    background-color: white !important;
 }
 
-.button{
-    margin: 15px;
+.description-text{
+    color: gray;
+    font-size: 14px !important;
+    background-color: white !important;
+    padding-left: 25px;
+    margin: 0 !important;
+    width: 100%;
+    font-weight: 100 !important;
+    text-align: start !important;
+}
+.description-column{
+    background-color: white !important;
+}
+.points-badge{
+    /* border-color: #C9A2CA !important; */
+    /* background-color: #C9A2CA !important; */
+    font-size: 10px !important;
+    height: min-content + 2px !important;
+    width: min-content !important;
+    color: white !important;
+    font-weight: 500 !important;
+}
+.card-content{
+    padding-top: 0px !important;
+    padding-bottom: 7px !important;
+}
+
+.finished-button{
+    /* background-color: #C9A2CA !important; */
+    height: 50% !important;
+    justify-content: center;
+    align-content: center;
+    margin-right: 0 !important;
+}
+.finished-button:hover{
+    /* background-color: #B289B2 !important; */
+}
+.info-button{
+    /* background-color: #BC97BD !important; */
+    height: 50% !important;
+    justify-content: center;
+    align-content: center;
+    margin-right: 0 !important;
+}
+.info-button:hover{
+    /* background-color: #A27FA3 !important; */
 }

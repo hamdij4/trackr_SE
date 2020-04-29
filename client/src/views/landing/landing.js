@@ -12,6 +12,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import TaskContainer from '../../components/task-container/task-container'
+import DailyContainer from "../../components/daily-container/daily-container";
+import HabbitContainer from "../../components/habbit-container/habbit-container";
 
 function LandingScreen() {
     
@@ -23,6 +25,7 @@ function LandingScreen() {
     const [dailyList, setDailyList] = useState([]);
 
     useEffect(() => {  
+        //setName(localStorage.getItem("name"));
     }, [])
 
     return (
@@ -32,44 +35,20 @@ function LandingScreen() {
             <Container style={{maxWidth: "80%"}}>
                 <Row className = "welcome-title">
                     <Col>
-                    <Typography variant="h1" gutterBottom>
-                        Hello {name}
-                    </Typography>
-                    <Typography variant="h4" gutterBottom>
-                        Here is your overview
-                    </Typography>
+                        <span className="greetings">Hello</span>
+                        <span  className="greetings-name">{name}</span>
+                        <div className="greetings" style={{fontSize:"16px", color: "gray", marginTop: "-22px"}}>Welcome to your <i>overview</i></div>
                     </Col>
                 </Row>
                 <Row className = "task-container">
                     <Col>
-                        <Card variant="outlined" className="view-card">
-                        <CardContent>
-                            <Typography color="textSecondary" gutterBottom>
-                                These are your
-                            </Typography>
-                            <Typography variant="h5" component="h2">
-                            Habbits
-                            </Typography>
-                        </CardContent>
-                        </Card>
+                        <HabbitContainer list={taskList}></HabbitContainer>
                     </Col>
                     <Col>
                         <TaskContainer list={taskList}></TaskContainer>
                     </Col>
                     <Col>
-                        <Card variant="outlined" className="view-card">
-                        <CardContent>
-                            <Typography color="textSecondary" gutterBottom>
-                                These are your
-                            </Typography>
-                            <Typography variant="h5" component="h2">
-                            Dailies
-                            </Typography>
-                        </CardContent>
-                        {/* <CardActions>
-                            <Button size="small">Learn More</Button>
-                        </CardActions> */}
-                        </Card>
+                        <DailyContainer list={taskList}></DailyContainer>
                     </Col>
                 </Row>
             </Container>
