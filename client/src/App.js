@@ -4,6 +4,7 @@ import LoginScreen from './views/login/login';
 import LandingScreen from './views/landing/landing';
 import {BrowserRouter as Router,
         Switch, Route} from 'react-router-dom'
+import TrackrNavbar  from './components/navbar/navbar';
 
 class App extends React.Component {
   state = {
@@ -12,7 +13,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-     
+        <TrackrNavbar></TrackrNavbar>
       <Router>
         <Switch>
           <Route path = "/login" component = {LoginScreen}/>

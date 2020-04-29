@@ -25,7 +25,9 @@ function LandingScreen() {
     const [dailyList, setDailyList] = useState([]);
 
     useEffect(() => {  
-        //setName(localStorage.getItem("name"));
+        if(localStorage.getItem("name")){
+            setName(localStorage.getItem("name"));
+        }
     }, [])
 
     return (

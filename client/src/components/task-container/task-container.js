@@ -29,15 +29,15 @@ function TaskContainer(props) {
             console.log(error)
         })
         .finally( () => {
-            var testModel = {
-                name: "John Doe's task",
-                description: "A task John Doe has to do",
-                points: 25
-            }
-            var array = []
-            array.push(testModel)
-            array.push(testModel)
-            setTaskList(array)
+            // var testModel = {
+            //     name: "John Doe's task",
+            //     description: "A task John Doe has to do",
+            //     points: 25
+            // }
+            // var array = []
+            // array.push(testModel)
+            // array.push(testModel)
+            // setTaskList(array)
             setIsLoaded(true)
         })
     }, [])
