@@ -10,10 +10,19 @@ class App extends React.Component {
   state = {
     navbarHidden : false
   };
+
+  componentDidMount () {
+    const currentRoute = window.location.pathname;
+    console.log(currentRoute)
+    if (currentRoute === '/login') {
+      this.setState({ navbarHidden: true });
+    }
+  } 
+
   render() {
     return (
       <div className="App">
-        <TrackrNavbar></TrackrNavbar>
+        { !this.state.navbarHidden && <TrackrNavbar></TrackrNavbar>}
       <Router>
         <Switch>
           <Route path = "/login" component = {LoginScreen}/>

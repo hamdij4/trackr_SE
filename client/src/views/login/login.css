@@ -1,5 +1,5 @@
 .form-container{
-    background-color: slategrey;
+    background-color: #f1f1f1;
     min-height: 100vh;
     padding: 30px;
     display: flex;
@@ -25,12 +25,35 @@
 }
 
 .register-txt{
-    color: white;
-    margin-top: 20px;
+    color: gray;
+    font-size: 12px;
+    margin-top: 45px;
     margin-bottom: 0px;
     cursor: pointer;
-    font-weight: 600;
+    font-weight: 300;
 }
 .register-txt:hover{
-    color: white !important;
+    color: darkgray !important;
+}
+
+.left-section{
+    background-color: #f8f8f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 82px;
+    color: black;
+    font-weight: 700;
+}
+
+.login-btn:hover{
+    background-color: #85B592 !important;
+}
+
+.logo-subtitle{
+    font-weight: 300;
+    color: gray;
+    font-size: 15px;
+    margin-top: -30px;
 }

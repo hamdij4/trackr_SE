@@ -41,26 +41,47 @@ function LoginScreen() {
         <div
         className="login-container">
                 <Row>
-                    <Col md={7}>
-                        LOGO
+                    <Col md={7}  className="left-section">
+                        Trackr
+                        <span className="logo-subtitle"> <i>We are what we do </i></span>
                     </Col>
                     <Col md={5} className="form-container">
                     <Form >
                         <FormGroup>
                         <Label for="username">
-                            <FontAwesomeIcon  className="icon" icon={faUserCircle}/>
+                            <FontAwesomeIcon  
+                                className="icon" 
+                                icon={faUserCircle}/>
                         </Label>
-                { alert ?
-                (
-                    <Alert severity="warning">This is a warning alert — check it out!</Alert>
-                    ):( console.log(""))}
-                        <Input onChange={handleInputField} type="text" name="username" placeholder="Username" className="field"
+                        <Input 
+                            onChange={handleInputField} 
+                            type="text" name="username" 
+                            placeholder="Username" 
+                            className="field"
                         />
-                        <Input onChange={handleInputField} type="password" name="password" placeholder="Password" className="field"
+                        <Input 
+                            onChange={handleInputField} 
+                            type="password" name="password" 
+                            placeholder="Password" 
+                            className="field"
                         />
-                        <Button onClick={login} className="btn-round" variant="contained" color="primary"style={{marginTop: "10px", width:"35%"}} type="button" >
+                        <Button 
+                            onClick={login} 
+                            className="login-btn" 
+                            variant="outlined" 
+                            color="primary"
+                            style={{marginTop: "10px", width:"35%", 
+                                    borderColor: "#95CCA4", backgroundColor: "#95CCA4",
+                                    color:"white", fontWeight: "500"}} 
+                            type="button">
                             Login
-                    </Button> <br></br><Link to="/register" className="register-txt" >Need an account? Register here</Link>
+                    </Button> 
+                    <br></br>
+                    <Link 
+                        to="/register" 
+                        className="register-txt">
+                        Need an account? Register here
+                    </Link>
                         </FormGroup>
                 </Form>
                 </Col>
