@@ -14,7 +14,7 @@ class App extends React.Component {
   componentDidMount () {
     const currentRoute = window.location.pathname;
     console.log(currentRoute)
-    if (currentRoute === '/login') {
+    if (currentRoute === '/login' ||  currentRoute ==='/') {
       this.setState({ navbarHidden: true });
     }
   } 

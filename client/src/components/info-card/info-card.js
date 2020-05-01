@@ -6,12 +6,14 @@ import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Chip from '@material-ui/core/Chip';
-import DonutSmallIcon from '@material-ui/icons/DonutSmall';
+import EditRoundedIcon from '@material-ui/icons/EditRounded';
+import EditModal from "../edit-modal/edit-modal";
 
 function InfoCard(props) {
 
     const [expanded, setExpanded] = React.useState(false);
     const [checked, setChecked] = React.useState(true);
+    const [openModal, setOpenModal] = React.useState(false);
 
     const getMainColor = () => {
         if(props.type == 1) {
@@ -35,24 +37,27 @@ function InfoCard(props) {
             return "black"
         }
     } 
+
     return (
         <>
         <Card variant="outlined" className="task-card"
             style={{borderColor: getMainColor()}}>
             <Row>
-                <Col lg={9} md={9} sm={9} className="description-column">
+                <Col lg={9} md={9} sm={9} className="description-column" onClick={() => {setOpenModal(!openModal)}}>
+                    { openModal ? (<EditModal isOpen={openModal} type={props.type} data={props.info}></EditModal>) : (null) }
                     <Row className="title-row">
                                 <Typography variant="h6" component="h2">
                                     {props.info.name}
-                                </Typography>
-                                <div
-                        className="info-column">
-                                  <Chip 
+                                  <Chip     
                                     className="points-badge"
                                     label={props.info.points + " pts"} 
                                     variant="outlined" 
                                     size="small"
-                                    style={{backgroundColor: getMainColor(), borderColor:  getMainColor()}}/>
+                                    style={{backgroundColor: getMainColor(), borderColor:  getMainColor(),
+                                     marginLeft: "10px"}}/>
+                                </Typography>
+                                <div
+                        className="info-column">
                                 </div>
                     </Row>
                     <Row className="content-row">

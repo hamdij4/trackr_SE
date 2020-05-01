@@ -22,7 +22,7 @@
 .title-row{
     background-color: white;
     color: black;
-    font-size: 28px;
+    font-size: calc(20px + (28 - 14) * ((100vw - 300px) / (1600 - 300)));
     font-weight: 300 !important;
     padding-left: 25px;
     padding-top: 15px;
@@ -32,7 +32,7 @@
 
 .info-column{
     color: lightgray;
-    font-size: 12px;
+    font-size:calc(10px + (13 - 12) * ((100vw - 300px) / (1600 - 300)));
     padding-left: 25px;
     margin: 0 !important;
     padding-bottom: 7px;
@@ -43,7 +43,7 @@
 
 .description-text{
     color: gray;
-    font-size: 14px !important;
+    font-size: calc(12px + (14 - 12) * ((100vw - 300px) / (1600 - 300))) !important;
     background-color: white !important;
     padding-left: 25px;
     margin: 0 !important;
@@ -57,7 +57,7 @@
 .points-badge{
     /* border-color: #C9A2CA !important; */
     /* background-color: #C9A2CA !important; */
-    font-size: 10px !important;
+    font-size: calc(8px + (10 - 8) * ((100vw - 300px) / (1600 - 300))) !important;
     height: min-content + 2px !important;
     width: min-content !important;
     color: white !important;
@@ -76,7 +76,7 @@
     margin-right: 0 !important;
 }
 .finished-button:hover{
-    /* background-color: #B289B2 !important; */
+    cursor: pointer;
 }
 .info-button{
     /* background-color: #BC97BD !important; */
@@ -86,5 +86,5 @@
     margin-right: 0 !important;
 }
 .info-button:hover{
-    /* background-color: #A27FA3 !important; */
+    cursor: pointer;
 }

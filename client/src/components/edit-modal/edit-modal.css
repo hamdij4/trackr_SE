@@ -1,0 +1,96 @@
+.default{
+    color: white;
+}
+.form-control{
+    color: white !important;
+    border: none;
+    box-shadow: orange !important;
+}
+.form-control:focus{
+    color: white !important;
+    border: none;
+    box-shadow: none !important;
+}
+.habbit {
+    background-color: #F3BF71 !important;
+    border-radius: 3px;
+    color: white;
+}
+.habbit .field{
+    background-color: #E3B36B !important;
+    color: white !important;
+    border: none !important;
+    font-weight: 300 !important;
+}
+.habbit .field:focus{
+    background-color: #E3B36B !important;
+}
+.task {
+    background-color: #C9A2CA !important;
+    color: white;
+    border-radius: 3px;
+}
+.task .field{
+    background-color: #BC97BD !important;
+    color: white !important;
+    border: none !important;
+    font-weight: 300 !important;
+}
+.task .field:focus{
+    background-color: #BC97BD !important;
+}
+.daily {
+    background-color: #95CCA4 !important;
+    color: white;
+    border-radius: 3px;
+}
+.daily .field{
+    background-color: #85B592 !important;
+    color: white !important;
+    border: none !important;
+    font-weight: 300 !important;
+}
+.daily .field:focus{
+    background-color: #85B592 !important;
+}
+.header{
+    font-size: 22px;
+    margin-left: 20px;
+    font-weight: 300;
+}
+
+.input-form{
+    font-size: 16px;
+    padding: 25px;
+}
+.form-control::placeholder{
+    color: white !important;
+}
+.form-control:-moz-focusring{
+    text-shadow: none !important;
+}
+.point-slider{
+    width: 30%;
+    max-width: 300px;
+    color: #f3f3f3 !important;
+}
+
+.MuiSlider-thumb{
+    color: gray;
+    background-color: white;
+}
+.PrivateValueLabel-circle-116{
+    visibility: hidden !important;
+    height: 0px !important;
+}
+.MuiSlider-thumb.Mui-focusVisible, .MuiSlider-thumb:hover{
+   box-shadow:  0px 0px 0px 8px rgba(63, 81, 181, 0.05) !important;
+}
+.MuiSlider-markLabel{
+    color: white !important;
+}
+
+.details{
+    display: flex;
+    justify-content: center;
+}

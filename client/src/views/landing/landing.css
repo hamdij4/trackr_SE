@@ -9,10 +9,29 @@
 
 .welcome-title{
     height:  30vh;
-    text-align: start;
     padding-left: 30px;
 }
-
+.welcome-overview-column{
+    display: flex;
+    justify-content: start;
+    align-content: center;
+    flex-direction: column;
+}
+.view-holder{
+    max-width: 80%;
+}
+@media only screen and (min-width: 1366px) {
+    .view-holder{
+        max-width: 90% !important;
+    }
+} 
+@media only screen and (max-width: 1365px) {
+    .view-holder{
+        max-width: 100%  !important;
+    }
+    .greetings{
+    }
+} 
 .task-container{
     height: 70vh;
 }
@@ -27,13 +46,27 @@
     margin-bottom: 8px;
     background-color: ghostwhite !important;
 }
+.welcome-text{
+    font-size: 28px;
+    font-weight: 200;
+    margin-right: 12px;
+}
 .greetings{
     font-size: 28px;
     font-weight: 200;
     margin-right: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .greetings-name{
     font-size: 58px;
     font-weight: 500;
     margin-right: 12px;
+}
+
+.points-progress-text{
+    font-size: 22px;
+    font-weight: 300;
+    /* margin-left: 100px; */
 }

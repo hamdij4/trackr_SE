@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect} from "react";
-import { Col, Row, Container} from 'reactstrap';
+import { Col, Row, Container, Progress} from 'reactstrap';
 import './landing.css'
 import Axios from "axios";
 import 'typeface-roboto';
@@ -10,7 +10,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Collapse from '@material-ui/core/Collapse';
-import IconButton from '@material-ui/core/IconButton';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import TaskContainer from '../../components/task-container/task-container'
 import DailyContainer from "../../components/daily-container/daily-container";
 import HabbitContainer from "../../components/habbit-container/habbit-container";
@@ -19,7 +19,7 @@ function LandingScreen() {
     
     const [isLoaded, setIsLoaded] = useState(false);
     const [alert, setAlert] = useState(false);
-    const [name, setName] = useState("user");
+    const [name, setName] = useState("Hamdija");
     const [taskList, setTaskList] = useState([]);
     const [habbitList, setHabbitList] = useState([]);
     const [dailyList, setDailyList] = useState([]);
@@ -34,22 +34,33 @@ function LandingScreen() {
         <>
         <div
         className="view-container">
-            <Container style={{maxWidth: "80%"}}>
+            <Container className="view-holder">
                 <Row className = "welcome-title">
-                    <Col>
-                        <span className="greetings">Hello</span>
-                        <span  className="greetings-name">{name}</span>
-                        <div className="greetings" style={{fontSize:"16px", color: "gray", marginTop: "-22px"}}>Welcome to your <i>overview</i></div>
+                    <Col lg={6} md={6} className="welcome-overview-column">
+                        <div  className="greetings-name"> 
+                        <span className="welcome-text">Welcome</span>{name}</div>
+                        <div className="greetings" style={{fontSize:"16px", color: "gray", marginTop: "-22px"}}>
+                            Welcome to your overview
+                        <Progress 
+                        striped 
+                        color="secondary" 
+                        value={50} 
+                        style={{minWidth: "250px",
+                            maxWidth: "300px", marginTop: "15px"
+                        }}></Progress>
+                        </div>
+                        <div className="points-progress-text">55 / 200</div>
                     </Col>
+                    <Col lg={6} md={6} ></Col>
                 </Row>
                 <Row className = "task-container">
-                    <Col>
+                    <Col  lg={4}>
                         <HabbitContainer list={taskList}></HabbitContainer>
                     </Col>
-                    <Col>
+                    <Col  lg={4}>
                         <TaskContainer list={taskList}></TaskContainer>
                     </Col>
-                    <Col>
+                    <Col lg={4}>
                         <DailyContainer list={taskList}></DailyContainer>
                     </Col>
                 </Row>

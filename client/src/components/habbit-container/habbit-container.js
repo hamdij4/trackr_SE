@@ -57,7 +57,7 @@ function HabbitContainer(props) {
         <>
                         <Card variant="outlined" className="view-card">
                             <CardHeader  className="habbit-card-title" >
-                            <span style={{ fontSize: "16px", fontWeight:"300"}}>These are your </span> Habbits
+                            <span style={{ fontSize: "calc(16px + (20 - 16) * ((100vw - 300px) / (1600 - 300)))", fontWeight:"300"}}>These are your </span> Habbits
                             </CardHeader>
                         <CardContent>
                 {isLoaded ?

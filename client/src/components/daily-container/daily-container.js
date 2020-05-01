@@ -56,7 +56,7 @@ const DailyCards = taskList.map((model) =>
         <>
                         <Card variant="outlined" className="view-card">
                             <CardHeader  className="daily-card-title" >
-                            <span style={{ fontSize: "16px", fontWeight:"300"}}>These are your </span> Dailies
+                            <span style={{ fontSize: "calc(16px + (20 - 16) * ((100vw - 300px) / (1600 - 300)))", fontWeight:"300"}}>These are your </span> Dailies
                             </CardHeader>
                         <CardContent>
                 {isLoaded ?
