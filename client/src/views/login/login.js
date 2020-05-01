@@ -90,6 +90,7 @@ function LoginScreen() {
                                 type="text" name="username" 
                                 placeholder="Username" 
                                 className="field"
+                                style={{color: "gray !important"}}
                             />
                             <Input 
                                 onChange={handleInputField} 

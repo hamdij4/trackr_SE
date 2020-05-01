@@ -34,6 +34,7 @@ module.exports = (router, mongoose, jwt, config) => {
         console.log(token)
         if (token){
             var decoded = jwt.verify(token, config.JWT_SECRET)
+            console.log(decoded)
             Task.find({user : decoded.id}, (error, docs) => {
                 if(error){
                     console.log(getDate(), " Fetching tasks ", req.user , error, docs)
@@ -41,7 +42,7 @@ module.exports = (router, mongoose, jwt, config) => {
                     res.send({response: 'FAIL', reason: 'error'})
                 }
                 if (docs) {
-                    console.log(getDate(), "Fetched tasks: ", decoded._id)
+                    console.log(getDate(), "Fetched tasks: ", decoded.id)
                     res.status(200)
                     res.send({response: 'OK', tasks: docs})
                 }
@@ -77,7 +78,8 @@ module.exports = (router, mongoose, jwt, config) => {
         })
     })
     router.post('/editTask', (req, res) => {
-        Task.findOneAndUpdate({_id: req.body.id}, 
+        console.log(req.body)
+        Task.findOneAndUpdate({_id: req.body._id}, 
             { $set:{
                 user: req.body.user,
                 name: req.body.name,
@@ -88,12 +90,12 @@ module.exports = (router, mongoose, jwt, config) => {
             }
             }, {useFindAndModify: false}, (error, docs) => {
             if(error){
-                console.log(getDate(), " Error editing task: ", task , error)
+                console.log(getDate(), " Error editing task: ", error)
                 res.status(401)
                 res.send({response: 'FAIL', reason: 'error'})
             }
             if (docs) {
-                console.log(getDate(), "Edited task : ", task.name)
+                console.log(getDate(), "Edited task : ", req.body.name)
                 res.status(200)
                 res.send({response: 'OK'})
             }

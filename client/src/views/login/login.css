@@ -5,6 +5,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    color: gray !important;
+}
+.form-container .form-control{
+    color: gray !important; 
+}
+.form-container .form-control::placeholder{
+    color: gray !important; 
 }
 
 .icon {

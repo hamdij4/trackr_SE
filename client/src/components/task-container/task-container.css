@@ -16,4 +16,24 @@
     font-weight: 500;
     text-align: start !important;
     padding-left: 25px !important;
+    display: flex;
+    justify-content: start;
+    align-items: baseline;
+    position: relative;
+}
+
+.no-tasks-available{
+    font-weight: 300;
+    color: gray;
+}
+
+.add-button{    
+    position: absolute !important;
+    top: 16px !important;
+    right: 15px !important;
+    border-color: #BC97BD !important;
+    color: white !important;
+}
+.add-button:hover{
+    background-color: #BC97BD !important;
 }

@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Container, Col, Row, Form, Label, Input} from 'reactstrap';
 import './edit-modal.css'
 import { FormGroup } from '@material-ui/core';
-
+import axios from 'axios';
 import Slider from '@material-ui/core/Slider';
 
 const EditModal = (props) => {
@@ -50,9 +50,36 @@ const EditModal = (props) => {
   const handleSliderChange = (event, newValue) => {
     setValue(newValue);
   };
+  
+
   const handleInputField = useCallback(event => {
+    console.log(event.target.value)
     setData({...data, [event.target.name] : event.target.value})
   })
+
+  const editTask = async () => {
+    let model = {
+      _id : data._id,
+      name: data.name,
+      description: data.description,
+      points: data.points,
+      project: "",
+      due: Date.now(),
+      name: localStorage.getItem("user"),
+      user: localStorage.getItem("user")
+    }
+    console.log(model)
+    await axios.post('/user/editTask', model)
+      .then(res => {
+        console.log("success")
+        setOpen(false)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+      .finally(
+      )
+  }
 
   const toggle = () => setOpen(!open);
   return (
@@ -63,7 +90,11 @@ const EditModal = (props) => {
             <Row className={getClassFromType(props.type)} style={{padding: "10px"}}>
               <Col md={12}  style={{padding: "10px"}}>
                 <div className="header">
-                    Edit your <span style={{fontWeight: "500", fontSize:"28px"}}>{getClassFromType(props.type)}</span>
+                  { props.new ? (<span>
+                    Add new <span style={{fontWeight: "500", fontSize:"28px"}}>{getClassFromType(props.type)}</span>
+                    </span>):(<span>
+                    Edit your <span style={{fontWeight: "500", fontSize:"28px"}}>{getClassFromType(props.type)}</span></span>
+                    )}
                 </div>
                 <Form>
                   <FormGroup className="input-form">
@@ -72,7 +103,7 @@ const EditModal = (props) => {
                             <Input 
                                 onChange={handleInputField} 
                                 type="text" name="name" 
-                                value={props.data.name}
+                                value={data.name}
                                 className="field"
                             />
                     <Label for="description"> Description
@@ -80,7 +111,7 @@ const EditModal = (props) => {
                             <Input 
                                 onChange={handleInputField} 
                                 type="text" name="description" 
-                                value={props.data.description}
+                                value={data.description}
                                 className="field"
                                 style={{minHeight: "200px;"}}
                             />
@@ -116,7 +147,7 @@ const EditModal = (props) => {
           </Container>
         </ModalBody>
         <ModalFooter className="footer">
-          <Button color="primary" onClick={toggle}>Save</Button>{' '}
+          <Button color="primary" onClick={toggle} onClick={()=> {editTask()}}>Save</Button>{' '}
           <Button color="secondary" onClick={toggle}>Cancel</Button>
         </ModalFooter>
       </Modal>
