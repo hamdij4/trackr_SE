@@ -50,6 +50,7 @@ const EditModal = (props) => {
   const handleSliderChange = (event, newValue) => {
     setValue(newValue);
   };
+  var jwtDecode = require('jwt-decode');
   
 
   const handleInputField = useCallback(event => {
@@ -58,6 +59,7 @@ const EditModal = (props) => {
   })
 
   const editTask = async () => {
+    let token = jwtDecode(localStorage.getItem("token"))
     let model = {
       _id : data._id,
       name: data.name,
@@ -66,9 +68,8 @@ const EditModal = (props) => {
       project: "",
       due: Date.now(),
       name: localStorage.getItem("user"),
-      user: localStorage.getItem("user")
+      user: token.id
     }
-    console.log(model)
     await axios.post('/user/editTask', model)
       .then(res => {
         console.log("success")
@@ -78,6 +79,31 @@ const EditModal = (props) => {
         console.log(error)
       })
       .finally(
+
+      )
+  }
+  const createTask = async () => {
+    let token = jwtDecode(localStorage.getItem("token"))
+    let model = {
+      _id : data._id,
+      name: data.name,
+      description: data.description,
+      points: data.points,
+      project: "",
+      due: Date.now(),
+      name: localStorage.getItem("user"),
+      user: token.id
+    }
+    await axios.post('/user/task', model)
+      .then(res => {
+        console.log("success")
+        setOpen(false)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+      .finally(
+
       )
   }
 
@@ -139,15 +165,15 @@ const EditModal = (props) => {
                   onChange={handleSliderChange}
                 />
               </Col>
-              {/* <Col md={12} className="details" style={{
-                marginTop: "15px", fontSize: "14px", color: "gray", alignItems:"center"
-              }}> Active Days
-              </Col> */}
             </Row>
           </Container>
         </ModalBody>
         <ModalFooter className="footer">
-          <Button color="primary" onClick={toggle} onClick={()=> {editTask()}}>Save</Button>{' '}
+          <Button color="primary" onClick={toggle} onClick={()=> {
+            if(props.new == true){
+                createTask()
+            } else {editTask()}
+          }}>Save</Button>{' '}
           <Button color="secondary" onClick={toggle}>Cancel</Button>
         </ModalFooter>
       </Modal>
