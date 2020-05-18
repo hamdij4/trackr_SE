@@ -1,7 +1,19 @@
-
 .view-card{
-    height: 100%;
+    height: 70vh !important;
 }
+@media only screen and (max-width: 780px) {
+    .view-card{
+        height: 50vh !important;
+    }
+    .card-content-scroll{
+        height: 30vh;
+    }
+}
+ @media only screen and (max-width: 1337px) {
+    .card-content-scroll{
+        height: 45vh;
+    }
+} 
 
 .task-card{
     margin-top: 8px;
@@ -36,4 +48,8 @@
 }
 .add-button:hover{
     background-color: #BC97BD !important;
+}
+
+.card-content-scroll{
+    height: 60vh;
 }

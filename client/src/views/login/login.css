@@ -13,14 +13,16 @@
 .form-container .form-control::placeholder{
     color: gray !important; 
 }
-
+.gray-field.form-control:focus{
+    color: gray !important;
+}
 .icon {
     color: white;
     font-size: 64px;
     margin-bottom: 10px;
 }
 
-.field {
+.gray-field {
     margin-bottom: 10px;
     max-width: 100%;
 }
@@ -45,7 +47,7 @@
     font-weight: 300;
 }
 .register-txt:hover{
-    color: darkgray !important;
+    color: black !important;
 }
 
 .left-section{

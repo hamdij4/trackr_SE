@@ -58,16 +58,16 @@ function TaskContainer(props) {
                     <span style={{ fontSize: "calc(16px + (20 - 16) * ((100vw - 300px) / (1600 - 300)))", fontWeight:"300"}}>These are your </span> Tasks
                     <Button variant="outlined" color="primary" className="add-button" onClick={()=>{setOpenModal(true)}}> Create </Button>
                     </CardHeader>
-                <CardContent>
-                {!emptyTasks ?
-                    (
-                        <Container className="card-container">
-                            <Row>
-                                {taskCards}
-                            </Row>
-                        </Container>
-                    ) : (<div className="no-tasks-available">No tasks available, you should make one!</div>)
-                }
+                <CardContent className="card-content-scroll">
+                    {!emptyTasks ?
+                        (
+                            <Container className="card-container"  style={{overflow: "auto", height: "inherit"}}>
+                                <Row>
+                                    {taskCards}
+                                </Row>
+                            </Container>
+                        ) : (<div className="no-tasks-available">No tasks available, you should make one!</div>)
+                    }
                 </CardContent>
             </Card>
         </>

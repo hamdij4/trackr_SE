@@ -89,14 +89,14 @@ function LoginScreen() {
                                 onChange={handleInputField} 
                                 type="text" name="username" 
                                 placeholder="Username" 
-                                className="field"
+                                className="gray-field"
                                 style={{color: "gray !important"}}
                             />
                             <Input 
                                 onChange={handleInputField} 
                                 type="password" name="password" 
                                 placeholder="Password" 
-                                className="field"
+                                className="gray-field"
                             />
                             <Button 
                                 onClick={login} 
@@ -123,40 +123,40 @@ function LoginScreen() {
                     ) : (
                     <Form className={loginActive ? 'hidden-form' : 'visible-form'}>
                             <FormGroup>
-                            <Label for="username">
+                            <Label for="username_register">
                                 <FontAwesomeIcon  
                                     className="icon" 
                                     icon={faAddressCard}/>
                             </Label>
                             <Input 
                                 onChange={handleRegisterField} 
-                                type="text" name="username" 
+                                type="text" name="username_register" 
                                 placeholder="Username" 
-                                className="reg-field"
+                                className="gray-field"
                             />
                             <Input 
                             onChange={handleRegisterField} 
                             type="text" name="name" 
                             placeholder="First name" 
-                            className="reg-field"
+                            className="gray-field"
                             />
                             <Input 
                             onChange={handleRegisterField} 
                             type="text" name="surname" 
                             placeholder="Last name" 
-                            className="reg-field"
+                            className="gray-field"
                             />
                             <Input 
                             onChange={handleRegisterField} 
                             type="text" name="email" 
                             placeholder="Email" 
-                            className="reg-field"
+                            className="gray-field"
                             />
                             <Input 
                                 onChange={handleRegisterField} 
-                                type="password" name="password" 
+                                type="password" name="password_register" 
                                 placeholder="Password" 
-                                className="reg-field"
+                                className="gray-field"
                             />
                             <Button 
                                 onClick={register} 

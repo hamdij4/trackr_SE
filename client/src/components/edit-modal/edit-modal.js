@@ -67,7 +67,6 @@ const EditModal = (props) => {
       points: data.points,
       project: "",
       due: Date.now(),
-      name: localStorage.getItem("user"),
       user: token.id
     }
     await axios.post('/user/editTask', model)
@@ -91,7 +90,6 @@ const EditModal = (props) => {
       points: data.points,
       project: "",
       due: Date.now(),
-      name: localStorage.getItem("user"),
       user: token.id
     }
     await axios.post('/user/task', model)

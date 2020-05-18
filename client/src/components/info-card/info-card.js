@@ -64,7 +64,7 @@ function InfoCard(props) {
                             <CardContent
                                 className="card-content">
                                 <div className="description-text">
-                                            {props.info.description + " adding more random words to fill all this stuff in"}
+                                            {props.info.description}
                                             </div>
                             </CardContent>
                     </Row>
