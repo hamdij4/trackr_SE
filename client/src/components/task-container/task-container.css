@@ -4,6 +4,7 @@
 @media only screen and (max-width: 780px) {
     .view-card{
         height: 50vh !important;
+        margin-bottom: 20px !important;
     }
     .card-content-scroll{
         height: 30vh;
@@ -52,4 +53,9 @@
 
 .card-content-scroll{
     height: 60vh;
+}
+
+.card-container::-webkit-scrollbar {
+    width: 0px !important;
+    background: transparent !important; /* make scrollbar transparent */
 }

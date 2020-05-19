@@ -38,7 +38,7 @@ function LandingScreen() {
                 <Row className = "welcome-title">
                     <Col lg={6} md={6} className="welcome-overview-column">
                         <div  className="greetings-name"> 
-                        <span className="welcome-text">Welcome</span>{name}</div>
+                        <span className="welcome-text">Hello</span>{name}</div>
                         <div className="greetings" style={{fontSize:"16px", color: "gray", marginTop: "-22px"}}>
                             Welcome to your overview
                         <Progress 
@@ -51,7 +51,21 @@ function LandingScreen() {
                         </div>
                         <div className="points-progress-text">55 / 200</div>
                     </Col>
-                    <Col lg={6} md={6} ></Col>
+                    <Col lg={6} md={6} className="stats-overview-column">
+                        {/* <div className="stats-title">These are your overall <span className="stats-text"> stats</span></div> */}
+                        <div className="stats-title">Your completion <span className="stats-text"> stats</span></div>
+                        <Row style={{margin: "0 auto", color: "white"}}>
+                            <Col md={4} className="habbit-stats">12</Col>
+                            <Col md={4} className="task-stats">4</Col>
+                            <Col md={4} className="daily-stats">11</Col>
+                        </Row>
+                        <div className="stats-title" style={{marginTop: "15px;"}}>Your active challenges</div>
+                        <Row style={{margin: "0 auto", color: "white"}}>
+                            <Col md={4} className="habbit-stats">Habbits</Col>
+                            <Col md={4} className="task-stats">Tasks</Col>
+                            <Col md={4} className="daily-stats">Dailies</Col>
+                        </Row>
+                    </Col>
                 </Row>
                 <Row className = "task-container">
                     <Col  lg={4}>

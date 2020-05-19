@@ -11,9 +11,13 @@
 
 .habbit-card-title{
     background-color: #F3BF71 !important;
-    font-size: calc(28px + (30 - 28) * ((100vw - 300px) / (1600 - 300)));   
+    font-size: calc(28px + (30 - 28) * ((100vw - 300px) / (1600 - 300)));
     color: white;
     font-weight: 500;
     text-align: start !important;
     padding-left: 25px !important;
+    display: flex;
+    justify-content: start;
+    align-items: baseline;
+    position: relative;
 }

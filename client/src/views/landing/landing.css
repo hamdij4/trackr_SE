@@ -70,3 +70,49 @@
     font-weight: 300;
     /* margin-left: 100px; */
 }
+.stats-title{
+    font-size: 22px;
+}
+.stats-text{
+    font-size: 36px;
+    font-weight: 400;
+    color: gray;
+}
+.stats-overview-column{
+    display: flex;
+    justify-content: start;
+    align-content: center;
+    flex-direction: column;
+    color: lightgray;
+    font-weight: 300;
+}
+.habbit-stats{
+    background-color: #F3BF71;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    min-height: 35px;
+    min-width: 70px;
+}
+.daily-stats{
+    background-color: #95CCA4;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    min-height: 35px;
+    min-width: 70px;
+}
+.task-stats{
+    background-color: #C9A2CA;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    min-height: 35px;
+    min-width: 70px;
+}
+
+@media only screen and (max-width: 780px) {
+    .stats-overview-column{
+        display: none;
+    }
+}
