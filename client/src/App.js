@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import './App.css';
 import LoginScreen from './views/login/login';
 import LandingScreen from './views/landing/landing';
+import SettingsScreen from './views/settings/settings';
 import {BrowserRouter as Router,
         Switch, Route} from 'react-router-dom'
 import TrackrNavbar  from './components/navbar/navbar';
+import ProjectScreen from './views/projects/projects';
 
 class App extends React.Component {
   state = {
@@ -13,7 +15,6 @@ class App extends React.Component {
 
   componentDidMount () {
     const currentRoute = window.location.pathname;
-    console.log(currentRoute)
     if (currentRoute === '/login' ||  currentRoute ==='/') {
       this.setState({ navbarHidden: true });
     }
@@ -21,16 +22,18 @@ class App extends React.Component {
 
   render() {
     return (
+      <Router>
       <div className="App">
         { !this.state.navbarHidden && <TrackrNavbar></TrackrNavbar>}
-      <Router>
         <Switch>
           <Route path = "/login" component = {LoginScreen}/>
           <Route path = "/home" component = {LandingScreen}/>
+          <Route path = "/settings" component = {SettingsScreen}/>
+          <Route path = "/projects" component = {ProjectScreen}/>
           <Route path = "/" component = {LoginScreen}/>
         </Switch>
-      </Router>
       </div>
+      </Router>
     );
   }
 }

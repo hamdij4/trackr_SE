@@ -36,7 +36,7 @@ module.exports = (router, mongoose, jwt, config) => {
         if (token){
             var decoded = jwt.verify(token, config.JWT_SECRET)
             console.log(decoded)
-            Task.find({user : decoded.id}, (error, docs) => {
+            Task.find({user : decoded.id, archived : false}, (error, docs) => {
                 if(error){
                     console.log(getDate(), " Fetching tasks ", req.user , error, docs)
                     res.status(401)
@@ -102,6 +102,44 @@ module.exports = (router, mongoose, jwt, config) => {
             }
         })
     })
+    router.post('/finishTask', (req, res) => {
+        console.log(req.body)
+        Task.findOneAndUpdate({_id: req.body._id}, 
+            { $set:{
+                finished: true
+            }
+            }, {useFindAndModify: false}, (error, docs) => {
+            if(error){
+                console.log(getDate(), " Error finishing task: ", error)
+                res.status(401)
+                res.send({response: 'FAIL', reason: 'error'})
+            }
+            if (docs) {
+                console.log(getDate(), "Finished task : ", req.body._id)
+                res.status(200)
+                res.send({response: 'OK'})
+            }
+        })
+    })
+    router.post('/archiveTask', (req, res) => {
+        console.log(req.body)
+        Task.findOneAndUpdate({_id: req.body._id}, 
+            { $set:{
+                archived: true
+            }
+            }, {useFindAndModify: false}, (error, docs) => {
+            if(error){
+                console.log(getDate(), " Error archiving task: ", error)
+                res.status(401)
+                res.send({response: 'FAIL', reason: 'error'})
+            }
+            if (docs) {
+                console.log(getDate(), "Archived task : ", req.body._id)
+                res.status(200)
+                res.send({response: 'OK'})
+            }
+        })
+    })
 
     // Task Endpoints
     router.get('/habbits', (req, res) => {
@@ -109,7 +147,7 @@ module.exports = (router, mongoose, jwt, config) => {
         if (token){
             var decoded = jwt.verify(token, config.JWT_SECRET)
             console.log(decoded)
-            Habbit.find({user : decoded.id}, (error, docs) => {
+            Habbit.find({user : decoded.id, archived : false}, (error, docs) => {
                 if(error){
                     console.log(getDate(), " Fetching habbits ", req.user , error, docs)
                     res.status(401)
@@ -129,14 +167,16 @@ module.exports = (router, mongoose, jwt, config) => {
     })
 
     router.post('/habbit', (req, res) => {
-
+        console.log(req.body)
         var habbit = new Habbit ({
             user: req.body.user,
             name: req.body.name,
             description: req.body.description,
             points: req.body.points,
             positive_count: req.body.positive_count,
-            negative_count: req.body.negative_count
+            negative_count: req.body.negative_count,
+            archived: req.body.archived,
+            type: req.body.type
         })
         habbit.save(habbit, (error, docs) => {
             if(error){
@@ -174,6 +214,64 @@ module.exports = (router, mongoose, jwt, config) => {
             }
         })
     })
+    router.post('/archiveHabbit', (req, res) => {
+        console.log(req.body)
+        Habbit.findOneAndUpdate({_id: req.body._id}, 
+            { $set:{
+                archived: true
+            }
+            }, {useFindAndModify: false}, (error, docs) => {
+            if(error){
+                console.log(getDate(), " Error archiving habbit: ", error)
+                res.status(401)
+                res.send({response: 'FAIL', reason: 'error'})
+            }
+            if (docs) {
+                console.log(getDate(), "Archived habbit : ", req.body._id)
+                res.status(200)
+                res.send({response: 'OK'})
+            }
+        })
+    })
+    router.post('/finishHabbit', (req, res) => {
+        console.log(req.body)
+        Habbit.findOneAndUpdate({_id: req.body._id}, 
+            { $inc:{
+                positive_count : 1
+            }
+            }, {useFindAndModify: false}, (error, docs) => {
+            if(error){
+                console.log(getDate(), " Error incrementing habbit: ", error)
+                res.status(401)
+                res.send({response: 'FAIL', reason: 'error'})
+            }
+            if (docs) {
+                console.log(getDate(), "Incrementing habbit : ", req.body._id)
+                res.status(200)
+                res.send({response: 'OK'})
+            }
+        })
+    })
+    router.post('/decrement', (req, res) => {
+        console.log(req.body)
+        Habbit.findOneAndUpdate({_id: req.body._id}, 
+            { $inc:{
+                negative_count : 1
+            }
+            }, {useFindAndModify: false}, (error, docs) => {
+            if(error){
+                console.log(getDate(), " Error incrementing habbit: ", error)
+                res.status(401)
+                res.send({response: 'FAIL', reason: 'error'})
+            }
+            if (docs) {
+                console.log(getDate(), "Incrementing habbit : ", req.body._id)
+                res.status(200)
+                res.send({response: 'OK'})
+            }
+        })
+    })
+
 
     // Daily Endpoints
     router.get('/dailies', (req, res) => {
@@ -181,7 +279,7 @@ module.exports = (router, mongoose, jwt, config) => {
         if (token){
             var decoded = jwt.verify(token, config.JWT_SECRET)
             console.log(decoded)
-            Daily.find({user : decoded.id}, (error, docs) => {
+            Daily.find({user : decoded.id, archived : false}, (error, docs) => {
                 if(error){
                     console.log(getDate(), " Fetching dailies ", req.user , error, docs)
                     res.status(401)
@@ -201,14 +299,14 @@ module.exports = (router, mongoose, jwt, config) => {
     })
 
     router.post('/daily', (req, res) => {
-
         var daily = new Daily ({
             user: req.body.user,
             name: req.body.name,
             description: req.body.description,
             points: req.body.points,
             count: req.body.count,
-            done: req.body.done
+            done: req.body.done,
+            archived: req.body.archived
         })
         daily.save(daily, (error, docs) => {
             if(error){
@@ -246,4 +344,43 @@ module.exports = (router, mongoose, jwt, config) => {
             }
         })
     })
+    router.post('/archiveDaily', (req, res) => {
+        console.log(req.body)
+        Daily.findOneAndUpdate({_id: req.body._id}, 
+            { $set:{
+                archived: true
+            }
+            }, {useFindAndModify: false}, (error, docs) => {
+            if(error){
+                console.log(getDate(), " Error archiving daily: ", error)
+                res.status(401)
+                res.send({response: 'FAIL', reason: 'error'})
+            }
+            if (docs) {
+                console.log(getDate(), "Archived daily : ", req.body._id)
+                res.status(200)
+                res.send({response: 'OK'})
+            }
+        })
+    })
+    router.post('/finishDaily', (req, res) => {
+        console.log(req.body)
+        Daily.findOneAndUpdate({_id: req.body._id}, 
+            { $set:{
+                finished: true
+            }
+            }, {useFindAndModify: false}, (error, docs) => {
+            if(error){
+                console.log(getDate(), " Error finishing daily: ", error)
+                res.status(401)
+                res.send({response: 'FAIL', reason: 'error'})
+            }
+            if (docs) {
+                console.log(getDate(), "Finished daily : ", req.body._id)
+                res.status(200)
+                res.send({response: 'OK'})
+            }
+        })
+    })
+
 }

@@ -32,6 +32,11 @@ const TaskSchema = mongoose.Schema({
   due: {
     type: Date,
     required: false
+  },
+  archived: {
+    type: Boolean,
+    required: false,
+    default: false
   }
 });
 

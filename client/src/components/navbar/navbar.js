@@ -14,6 +14,7 @@ import {
   DropdownItem,
   NavbarText
 } from 'reactstrap';
+import { Link } from "react-router-dom";
 import Avatar from '@material-ui/core/Avatar';
 
 const TrackrNavbar = (props) => {
@@ -27,7 +28,7 @@ const TrackrNavbar = (props) => {
         <Row>
           <Col>
           <Navbar color="light" light expand="md">
-            <NavbarBrand href="/">Trackr</NavbarBrand>
+            <NavbarBrand  tag={Link} to="/">Trackr</NavbarBrand>
             <NavbarToggler onClick={toggle} />
             <Collapse 
               isOpen={isOpen} 
@@ -37,15 +38,15 @@ const TrackrNavbar = (props) => {
                 <div>
                 <Nav className="mr-auto" navbar style={{fontSize: "14px"}}>
                   <NavItem>
-                    <NavLink href="/components/">Home</NavLink>
+                    <NavLink  tag={Link} to="/home">Home</NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink href="https://github.com/reactstrap/reactstrap">Tasks</NavLink>
+                    <NavLink  tag={Link} to="/projects">Projects</NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink href="https://github.com/reactstrap/reactstrap">Projects</NavLink>
+                    <NavLink  tag={Link} to="/settings">Settings</NavLink>
                   </NavItem>
-                  <UncontrolledDropdown nav inNavbar>
+                  {/* <UncontrolledDropdown nav inNavbar>
                     <DropdownToggle nav caret>
                       Account
                     </DropdownToggle>
@@ -61,9 +62,9 @@ const TrackrNavbar = (props) => {
                         Settings
                       </DropdownItem>
                     </DropdownMenu>
-                  </UncontrolledDropdown>
+                  </UncontrolledDropdown> */}
                   <NavItem>
-                    <NavLink href="/components/">Logout</NavLink>
+                    <NavLink to="/">Logout</NavLink>
                   </NavItem>
                 </Nav>
                 </div>

@@ -1,0 +1,12 @@
+.project-tasks{
+    min-height: 300px;
+    height: max-content;
+    margin-top: 55px;
+    margin-bottom: 25px;
+}
+
+.small-card{
+    min-height: 140px;
+    height: max-content;
+    margin-bottom: 25px;
+}

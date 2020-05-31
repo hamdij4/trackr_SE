@@ -78,6 +78,16 @@
 .finished-button:hover{
     cursor: pointer;
 }
+.finished-button-1{
+    /* background-color: #C9A2CA !important; */
+    height: 100% !important;
+    justify-content: center;
+    align-content: center;
+    margin-right: 0 !important;
+}
+.finished-button-1:hover{
+    cursor: pointer;
+}
 .info-button{
     /* background-color: #BC97BD !important; */
     height: 50% !important;

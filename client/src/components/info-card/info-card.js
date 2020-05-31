@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect} from "react";
 import { Col, Row, Container} from 'reactstrap';
 import './info-card.css'
 import 'typeface-roboto';
+import axios from 'axios'
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -38,13 +39,53 @@ function InfoCard(props) {
         }
     } 
 
+    const finish = async () => {
+        let option = ""
+        let model = {
+          _id : props.info._id
+        }
+        if(props.type == 0){
+          option += "Habbit"
+        } else if (props.type == 1){
+          option += "Task"
+        } else if (props.type == 2){
+          option += "Daily"
+        }
+        await axios.post('/user/finish' + option, model)
+          .then(res => {
+            console.log("success")
+            props.setRefresh(!props.refresh)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+          .finally(()=>{
+          }
+          )
+      }
+      const decrement = async () => {
+        let model = {
+          _id : props.info._id
+        }
+        await axios.post('/user/decrement', model)
+          .then(res => {
+            console.log("success")
+            props.setRefresh(!props.refresh)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+          .finally(()=>{
+          }
+          )
+      }
     return (
         <>
         <Card variant="outlined" className="task-card"
             style={{borderColor: getMainColor()}}>
             <Row>
                 <Col lg={9} md={9} sm={9} className="description-column" onClick={() => {setOpenModal(!openModal)}}>
-                    { openModal ? (<EditModal isOpen={openModal} type={props.type} data={props.info}></EditModal>) : (null) }
+                    { openModal ? (<EditModal isOpen={openModal} setOpen={setOpenModal} type={props.type} data={props.info} refresh={props.refresh} setRefresh={props.setRefresh}></EditModal>) : (null) }
                     <Row className="title-row">
                                 <Typography variant="h6" component="h2">
                                     {props.info.name}
@@ -55,6 +96,14 @@ function InfoCard(props) {
                                     size="small"
                                     style={{backgroundColor: getMainColor(), borderColor:  getMainColor(),
                                      marginLeft: "10px"}}/>
+                                     {props.type == 0 ? (<>
+                                  <Chip     
+                                    className="points-badge"
+                                    label={ "Positive : " + props.info.positive_count  + " | Negative : " + props.info.negative_count} 
+                                    variant="outlined" 
+                                    size="small"
+                                    style={{backgroundColor: "lightskyblue", borderColor: "lightseagreen",
+                                     marginLeft: "10px"}}/></>) : (null)}
                                 </Typography>
                                 <div
                         className="info-column">
@@ -74,22 +123,36 @@ function InfoCard(props) {
                     </Row>
             </Col>
             <Col lg={3} md={3} sm={3}>
+                { props.type == 0 ? (
+                    <>
+                    <Row
+                    onClick={()=>finish()}
+                    className="finished-button"
+                    style={{ backgroundColor: getMainColor()}}>
+                        <span className="plus-sign"
+                        style={{color: "white", fontSize: "32px", fontWeight: "500", backgroundColor:  getMainColor(), height: "50% !important"}}>
+                            +
+                        </span>
+                    </Row>
+                    <Row
+                    className="info-button"
+                    onClick={()=>decrement()}
+                    style={{ backgroundColor: getAccentColor(), height: "50% !important"}}>
+                    <span className="plus-sign" 
+                    style={{color: "white", fontSize: "32px", fontWeight: "500"}}>
+                        -
+                    </span>
+                    </Row></>
+                ) : (
                 <Row
-                className="finished-button"
+                onClick={()=>finish()}
+                className="finished-button-1"
                 style={{ backgroundColor: getMainColor()}}>
                     <span className="plus-sign"
-                    style={{color: "white", fontSize: "32px", fontWeight: "500", backgroundColor:  getMainColor()}}>
+                    style={{color: "white", fontSize: "32px", fontWeight: "500", backgroundColor:  getMainColor(), height: "50% !important"}}>
                         +
                     </span>
-                </Row>
-                <Row
-                className="info-button"
-                style={{ backgroundColor: getAccentColor()}}>
-                <span className="plus-sign" 
-                style={{color: "white", fontSize: "32px", fontWeight: "500"}}>
-                    -
-                </span>
-                </Row>
+                </Row>)}
             </Col>
             </Row>
         </Card>

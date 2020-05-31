@@ -44,17 +44,18 @@ const EditModal = (props) => {
         return "default"
     }
   }
-  const [open, setOpen] = useState(props.isOpen)
+  //const [open, setOpen] = useState(props.isOpen)
   const [value, setValue] = React.useState(props.data.points);
   const [data, setData] = useState(props.data)
+  const {setOpen} = props;
   const handleSliderChange = (event, newValue) => {
     setValue(newValue);
   };
   var jwtDecode = require('jwt-decode');
   
+  console.log(props.data)
 
   const handleInputField = useCallback(event => {
-    console.log(event.target.value)
     setData({...data, [event.target.name] : event.target.value})
   })
 
@@ -83,32 +84,92 @@ const EditModal = (props) => {
   }
   const createTask = async () => {
     let token = jwtDecode(localStorage.getItem("token"))
+    let option = ""
     let model = {
-      _id : data._id,
-      name: data.name,
-      description: data.description,
-      points: data.points,
-      project: "",
-      due: Date.now(),
-      user: token.id
     }
-    await axios.post('/user/task', model)
+    if(props.type == 0){
+      option += "habbit"
+      model = {
+        _id : data._id,
+        name: data.name,
+        description: data.description,
+        points: data.points,
+        user: "",
+        negative_count: 0,
+        positive_count: 0,
+        user: token.id,
+        archived: false,
+        type: 0
+      }
+    } else if (props.type == 1){
+      option += "task"
+      model = {
+        _id : data._id,
+        name: data.name,
+        description: data.description,
+        points: data.points,
+        project: "",
+        due: Date.now(),
+        user: token.id,
+        archived: false
+      }
+    } else if (props.type == 2){
+      option += "daily"
+      model = {
+        _id : data._id,
+        name: data.name,
+        description: data.description,
+        points: data.points,
+        count: 0,
+        done: false,
+        user: token.id,
+        archived: false
+      }
+    }
+    await axios.post('/user/' + option, model)
       .then(res => {
         console.log("success")
         setOpen(false)
+        props.setRefresh(!props.refresh)
       })
       .catch(error => {
         console.log(error)
       })
-      .finally(
-
+      .finally(()=>{
+      }
       )
   }
 
-  const toggle = () => setOpen(!open);
+  const deleteItem = async () => {
+    let option = ""
+    let model = {
+      _id : data._id
+    }
+    if(props.type == 0){
+      option += "Habbit"
+    } else if (props.type == 1){
+      option += "Task"
+    } else if (props.type == 2){
+      option += "Daily"
+    }
+    await axios.post('/user/archive' + option, model)
+      .then(res => {
+        console.log("success")
+        setOpen(false)
+        props.setRefresh(!props.refresh)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+      .finally(()=>{
+      }
+      )
+  }
+
+  const toggle = () => setOpen(!props.isOpen);
   return (
     <div>
-      <Modal isOpen={open} toggle={toggle} className={getClassFromType(props.type)}>
+      <Modal isOpen={props.isOpen} toggle={toggle} className={getClassFromType(props.type)}>
         <ModalBody style={{padding: "0"}}>
           <Container >
             <Row className={getClassFromType(props.type)} style={{padding: "10px"}}>
@@ -167,12 +228,17 @@ const EditModal = (props) => {
           </Container>
         </ModalBody>
         <ModalFooter className="footer">
-          <Button color="primary" onClick={toggle} onClick={()=> {
+          { props.new ? (null): (<>
+          <Button color="warning" onClick={toggle} onClick={()=> {
+            deleteItem()
+          }}>Remove</Button>{' '}
+          </>)}
+          <Button color="secondary" onClick={toggle}>Cancel</Button>
+          <Button color="success" onClick={toggle} onClick={()=> {
             if(props.new == true){
                 createTask()
             } else {editTask()}
           }}>Save</Button>{' '}
-          <Button color="secondary" onClick={toggle}>Cancel</Button>
         </ModalFooter>
       </Modal>
     </div>

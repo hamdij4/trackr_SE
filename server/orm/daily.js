@@ -28,6 +28,11 @@ const DailySchema = mongoose.Schema({
     type: Number,
     required: false,
     default: 5
+  },
+  archived: {
+    type: Boolean,
+    required: false,
+    default: false
   }
 });
 

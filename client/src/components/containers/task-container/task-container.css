@@ -1,13 +1,14 @@
 .view-card{
-    height: 70vh !important;
+    height: 60vh !important;
+    padding-bottom: 10px !important;
 }
 @media only screen and (max-width: 780px) {
     .view-card{
-        height: 50vh !important;
+        height: 60vh !important;
         margin-bottom: 20px !important;
     }
     .card-content-scroll{
-        height: 30vh;
+        height: 60vh;
     }
 }
  @media only screen and (max-width: 1337px) {
@@ -53,6 +54,7 @@
 
 .card-content-scroll{
     height: 60vh;
+    overflow-y: auto;
 }
 
 .card-container::-webkit-scrollbar {

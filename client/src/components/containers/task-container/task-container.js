@@ -6,8 +6,8 @@ import 'typeface-roboto';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import InfoCard from '../../components/info-card/info-card'
-import EditModal from '../../components/edit-modal/edit-modal'
+import InfoCard from '../../info-card/info-card'
+import EditModal from '../../edit-modal/edit-modal'
 
 function TaskContainer(props) {
     
@@ -19,6 +19,7 @@ function TaskContainer(props) {
     const [emptyHabbits, setEmptyHabbits] = React.useState(false);
     const [emptyDailies, setEmptyDailies] = React.useState(false);
     const [openModal, setOpenModal] = React.useState(false);
+    const [refresh, setRefresh] = React.useState(false);
 
     useEffect(() => {  
         Axios.get('/user/tasks', { headers : {'auth' : localStorage.getItem("token")}})
@@ -35,7 +36,7 @@ function TaskContainer(props) {
         .finally( () => {
             setIsLoaded(true)
         })
-    }, [])
+    }, [refresh])
 
     var emptyModel = {
         name: "Title",
@@ -46,22 +47,23 @@ function TaskContainer(props) {
 
     const taskCards = taskList.map((model) =>
             <Col lg={12} md={12} sm={12} >
-            <InfoCard info={model} type={1}></InfoCard>
+            <InfoCard info={model} type={1} refresh={refresh} setRefresh={setRefresh}></InfoCard>
             </Col>
         )
 
     return (
         <>
-            { openModal ? (<EditModal isOpen={openModal} type={1} data={emptyModel} new={true}></EditModal>) : (null) }
+            { openModal ? (<EditModal isOpen={openModal} setOpen={setOpenModal} type={1} data={emptyModel} new={true} refresh={refresh} setRefresh={setRefresh}></EditModal>) : (null) }
             <Card variant="outlined" className="view-card">
                     <CardHeader  className="task-card-title" >
-                    <span style={{ fontSize: "calc(16px + (20 - 16) * ((100vw - 300px) / (1600 - 300)))", fontWeight:"300"}}>These are your </span> Tasks
+                    <span style={{ fontSize: "calc(16px + (20 - 16) * ((100vw - 300px) / (1600 - 300)))", fontWeight:"300"}}
+                     className="remove-mobile">These are your </span> Tasks
                     <Button variant="outlined" color="primary" className="add-button" onClick={()=>{setOpenModal(true)}}> Create </Button>
                     </CardHeader>
                 <CardContent className="card-content-scroll">
                     {!emptyTasks ?
                         (
-                            <Container className="card-container"  style={{overflow: "auto", height: "inherit"}}>
+                            <Container className="card-container">
                                 <Row>
                                     {taskCards}
                                 </Row>

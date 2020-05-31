@@ -1,24 +1,13 @@
 import React, { useState, useCallback, useEffect} from "react";
 import { Col, Row, Container, Progress} from 'reactstrap';
 import './landing.css'
-import Axios from "axios";
 import 'typeface-roboto';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Collapse from '@material-ui/core/Collapse';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import TaskContainer from '../../components/task-container/task-container'
-import DailyContainer from "../../components/daily-container/daily-container";
-import HabbitContainer from "../../components/habbit-container/habbit-container";
+import TaskContainer from '../../components/containers/task-container/task-container'
+import DailyContainer from "../../components/containers/daily-container/daily-container";
+import HabbitContainer from "../../components/containers/habbit-container/habbit-container";
 
 function LandingScreen() {
     
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [alert, setAlert] = useState(false);
     const [name, setName] = useState("Hamdija");
     const [taskList, setTaskList] = useState([]);
     const [habbitList, setHabbitList] = useState([]);
@@ -34,7 +23,7 @@ function LandingScreen() {
         <>
         <div
         className="view-container">
-            <Container className="view-holder">
+            <Container className="landing-holder">
                 <Row className = "welcome-title">
                     <Col lg={6} md={6} className="welcome-overview-column">
                         <div  className="greetings-name"> 

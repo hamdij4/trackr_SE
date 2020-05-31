@@ -11,8 +11,8 @@ import CardContent from '@material-ui/core/CardContent';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
-import InfoCard from '../../components/info-card/info-card'
-import EditModal from '../../components/edit-modal/edit-modal'
+import InfoCard from '../../info-card/info-card'
+import EditModal from '../../edit-modal/edit-modal'
 
 function DailyContainer(props) {
     
@@ -20,30 +20,25 @@ function DailyContainer(props) {
     const [taskList, setTaskList] = useState([]);
     const [expanded, setExpanded] = React.useState(false);
     const [openModal, setOpenModal] = React.useState(false);
+    const [emptyTasks, setEmptyTasks] = React.useState(false);
+    const [refresh, setRefresh] = useState(false);
 
-    useEffect(() => {  
-        Axios.get('/user/tasks', { headers : {'auth' : localStorage.getItem("token")}})
+    useEffect( () => {  
+        Axios.get('/user/dailies', { headers : {'auth' : localStorage.getItem("token")}})
         .then(res => {
-            setTaskList(res.data.tasks)
-            console.log(res.data.tasks)
+            setTaskList(res.data.dailies)
+            if(res.data.dailies.length == 0){
+                setEmptyTasks(true)
+            }
         })
         .catch(error => {
+            setEmptyTasks(true)
             console.log(error)
         })
         .finally( () => {
-            //refresh()
-            var testModel = {
-                name: "John Doe's dailies",
-                description: "The things John Doe has decided to do t-o-d-a-y",
-                points: 25
-            }
-            var array = []
-            array.push(testModel)
-            array.push(testModel)
-            setTaskList(array)
             setIsLoaded(true)
         })
-    }, [])
+    }, [refresh])
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -57,17 +52,17 @@ function DailyContainer(props) {
 
 const DailyCards = taskList.map((model) =>
       <Col lg={12} md={12} sm={12} >
-      <InfoCard info={model} type={2}></InfoCard>
+      <InfoCard info={model} type={2} refresh={refresh} setRefresh={setRefresh}></InfoCard>
       </Col>
   )
     return (
         <>
-                { openModal ? (<EditModal isOpen={openModal} type={0} data={emptyModel} new={true}></EditModal>) : (null) }
+                { openModal ? (<EditModal isOpen={openModal} setOpen={setOpenModal} type={2} data={emptyModel} refresh={refresh} setRefresh={setRefresh} new={true}></EditModal>) : (null) }
 
                         <Card variant="outlined" className="view-card">
                             <CardHeader  className="daily-card-title" >
-                            <span style={{ fontSize: "calc(16px + (20 - 16) * ((100vw - 300px) / (1600 - 300)))", 
-                                            fontWeight:"300"}}>
+                            <span style={{ fontSize: "calc(16px + (20 - 16) * ((100vw - 300px) / (1600 - 300)))",
+                                            fontWeight:"300"}}  className="remove-mobile">
                                             These are your </span> Dailies
                             <Button variant="outlined" 
                                     color="primary" 
@@ -76,22 +71,17 @@ const DailyCards = taskList.map((model) =>
                                     style={{backgroundColor: "#95CCA4"}}>
                                          Create </Button>
                             </CardHeader>
-                        <CardContent>
-                {isLoaded ?
-                    (
-                        <Container className="card-container" style={{overflow: "auto", height: "inherit"}}>
-                            <Row>
-                                {DailyCards}
-                            </Row>
-                        </Container>
-                    ) : (
-                        <h3>Loading items...</h3>
-                    )
-                }
+                        <CardContent className="card-content-scroll">
+                        {!emptyTasks ?
+                        (
+                            <Container className="card-container">
+                                <Row>
+                                    {DailyCards}
+                                </Row>
+                            </Container>
+                        ) : (<div className="no-tasks-available">No dailies available, you should make some!</div>)
+                    }
                         </CardContent>
-                        {/* <CardActions>
-                            <Button size="small">Learn More</Button>
-                        </CardActions> */}
                         </Card>
         </>
     )

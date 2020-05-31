@@ -32,6 +32,11 @@ const HabbitSchema = mongoose.Schema({
     type: Number,
     required: false,
     default: 0
+  },
+  archived: {
+    type: Boolean,
+    required: false,
+    default: false
   }
 });
 
