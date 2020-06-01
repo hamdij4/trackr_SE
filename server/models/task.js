@@ -37,6 +37,10 @@ const TaskSchema = mongoose.Schema({
     type: Boolean,
     required: false,
     default: false
+  },
+  finish: {
+    type: Date,
+    required: false
   }
 });
 

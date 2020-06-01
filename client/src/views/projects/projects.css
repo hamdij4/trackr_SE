@@ -10,3 +10,26 @@
     height: max-content;
     margin-bottom: 25px;
 }
+
+.project-card{
+    height: 75vh;
+    margin-top: 25px;
+}
+
+.history-card{
+    position: relative;
+    min-height: max-content;
+    padding: 2px !important;
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    text-align: start;
+    padding-left: 15px !important;
+}
+.history-item{
+    margin-top: 5px;
+}
+.bottom-left{
+    color: gray;
+    font-size: 12px;
+}

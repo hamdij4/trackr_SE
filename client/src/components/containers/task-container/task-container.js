@@ -45,11 +45,15 @@ function TaskContainer(props) {
     }
   
 
-    const taskCards = taskList.map((model) =>
-            <Col lg={12} md={12} sm={12} >
-            <InfoCard info={model} type={1} refresh={refresh} setRefresh={setRefresh}></InfoCard>
-            </Col>
-        )
+    const taskCards = taskList.map((model) =>{
+        return model.finish != null ? 
+        null
+        :
+        <Col lg={12} md={12} sm={12} >
+        <InfoCard info={model} type={1} refresh={refresh} setRefresh={setRefresh}></InfoCard>
+        </Col>
+    }
+    )
 
     return (
         <>

@@ -1,10 +1,10 @@
 module.exports = (router, mongoose, jwt, config) => {
 
-    var User = require("../orm/user");
-    var Task = require("../orm/task");
-    var Habbit = require("../orm/habbit");
-    var Project = require("../orm/project");
-    var Daily = require("../orm/daily");
+    var User = require("../models/user");
+    var Task = require("../models/task");
+    var Habbit = require("../models/habbit");
+    var Project = require("../models/project");
+    var Daily = require("../models/daily");
 
     router.get('/users', (req, res) => {
         let model = req.body
@@ -37,6 +37,31 @@ module.exports = (router, mongoose, jwt, config) => {
             var decoded = jwt.verify(token, config.JWT_SECRET)
             console.log(decoded)
             Task.find({user : decoded.id, archived : false}, (error, docs) => {
+                if(error){
+                    console.log(getDate(), " Fetching tasks ", req.user , error, docs)
+                    res.status(401)
+                    res.send({response: 'FAIL', reason: 'error'})
+                }
+                if (docs) {
+                    console.log(getDate(), "Fetched tasks: ", decoded.id)
+                    res.status(200)
+                    res.send({response: 'OK', tasks: docs})
+                }
+        })
+        } else {
+            console.log(getDate(), " Fetching tasks ", req.user , error, docs)
+            res.status(401)
+            res.send({response: 'FAIL', reason: 'error'})
+        }
+    })
+
+    router.get('/allTasks', (req, res) => {
+        var token = req.headers["auth"]
+        console.log(token)
+        if (token){
+            var decoded = jwt.verify(token, config.JWT_SECRET)
+            console.log(decoded)
+            Task.find({user : decoded.id}, (error, docs) => {
                 if(error){
                     console.log(getDate(), " Fetching tasks ", req.user , error, docs)
                     res.status(401)
@@ -104,9 +129,11 @@ module.exports = (router, mongoose, jwt, config) => {
     })
     router.post('/finishTask', (req, res) => {
         console.log(req.body)
+        let date = new Date()
         Task.findOneAndUpdate({_id: req.body._id}, 
             { $set:{
-                finished: true
+                finished: true,
+                finish : date
             }
             }, {useFindAndModify: false}, (error, docs) => {
             if(error){
@@ -123,9 +150,11 @@ module.exports = (router, mongoose, jwt, config) => {
     })
     router.post('/archiveTask', (req, res) => {
         console.log(req.body)
+        let date = new Date()
         Task.findOneAndUpdate({_id: req.body._id}, 
             { $set:{
-                archived: true
+                archived: true,
+                finish: date
             }
             }, {useFindAndModify: false}, (error, docs) => {
             if(error){
@@ -148,6 +177,29 @@ module.exports = (router, mongoose, jwt, config) => {
             var decoded = jwt.verify(token, config.JWT_SECRET)
             console.log(decoded)
             Habbit.find({user : decoded.id, archived : false}, (error, docs) => {
+                if(error){
+                    console.log(getDate(), " Fetching habbits ", req.user , error, docs)
+                    res.status(401)
+                    res.send({response: 'FAIL', reason: 'error'})
+                }
+                if (docs) {
+                    console.log(getDate(), "Fetched habbits: ", decoded.id)
+                    res.status(200)
+                    res.send({response: 'OK', habbits: docs})
+                }
+        })
+        } else {
+            console.log(getDate(), " Fetching tasks ", req.user , error, docs)
+            res.status(401)
+            res.send({response: 'FAIL', reason: 'error'})
+        }
+    })
+    router.get('/allHabbits', (req, res) => {
+        var token = req.headers["auth"]
+        if (token){
+            var decoded = jwt.verify(token, config.JWT_SECRET)
+            console.log(decoded)
+            Habbit.find({user : decoded.id}, (error, docs) => {
                 if(error){
                     console.log(getDate(), " Fetching habbits ", req.user , error, docs)
                     res.status(401)
@@ -297,6 +349,29 @@ module.exports = (router, mongoose, jwt, config) => {
             res.send({response: 'FAIL', reason: 'error'})
         }
     })
+    router.get('/allDailies', (req, res) => {
+        var token = req.headers["auth"]
+        if (token){
+            var decoded = jwt.verify(token, config.JWT_SECRET)
+            console.log(decoded)
+            Daily.find({user : decoded.id}, (error, docs) => {
+                if(error){
+                    console.log(getDate(), " Fetching dailies ", req.user , error, docs)
+                    res.status(401)
+                    res.send({response: 'FAIL', reason: 'error'})
+                }
+                if (docs) {
+                    console.log(getDate(), "Fetched dailies: ", decoded.id)
+                    res.status(200)
+                    res.send({response: 'OK', dailies: docs})
+                }
+        })
+        } else {
+            console.log(getDate(), " Fetching tasks ", req.user , error, docs)
+            res.status(401)
+            res.send({response: 'FAIL', reason: 'error'})
+        }
+    })
 
     router.post('/daily', (req, res) => {
         var daily = new Daily ({
@@ -346,9 +421,11 @@ module.exports = (router, mongoose, jwt, config) => {
     })
     router.post('/archiveDaily', (req, res) => {
         console.log(req.body)
+        let date = new Date()
         Daily.findOneAndUpdate({_id: req.body._id}, 
             { $set:{
-                archived: true
+                archived: true,
+                finished: date
             }
             }, {useFindAndModify: false}, (error, docs) => {
             if(error){
@@ -365,9 +442,10 @@ module.exports = (router, mongoose, jwt, config) => {
     })
     router.post('/finishDaily', (req, res) => {
         console.log(req.body)
+        let date = new Date()
         Daily.findOneAndUpdate({_id: req.body._id}, 
             { $set:{
-                finished: true
+                finished: date
             }
             }, {useFindAndModify: false}, (error, docs) => {
             if(error){

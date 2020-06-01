@@ -33,6 +33,10 @@ const DailySchema = mongoose.Schema({
     type: Boolean,
     required: false,
     default: false
+  },
+  finished:{
+    type: Date, 
+    required: false
   }
 });
 

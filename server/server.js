@@ -19,7 +19,7 @@ let user_router = express.Router()
 require('./routes/user.js')(user_router, mongoose, jwt, config);
 app.use('/user', user_router);
 
-var User = require("./orm/user");
+var User = require("./models/user");
 app.post('/authenticate', (req, res) => {
     let model = req.body
     User.findOne(
