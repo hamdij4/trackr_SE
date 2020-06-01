@@ -21,8 +21,8 @@ function TaskContainer(props) {
     const [openModal, setOpenModal] = React.useState(false);
     const [refresh, setRefresh] = React.useState(false);
 
-    useEffect(() => {  
-        Axios.get('/user/tasks', { headers : {'auth' : localStorage.getItem("token")}})
+    const fetchData = async () => {
+        await Axios.get('/user/tasks', { headers : {'auth' : localStorage.getItem("token")}})
         .then(res => {
             setTaskList(res.data.tasks)
             if(res.data.tasks.length == 0){
@@ -36,7 +36,12 @@ function TaskContainer(props) {
         .finally( () => {
             setIsLoaded(true)
         })
+    }
+
+    useEffect(() => {  
+        fetchData();
     }, [refresh])
+    console.log("task", refresh)
 
     var emptyModel = {
         name: "Title",

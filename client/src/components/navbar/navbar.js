@@ -38,33 +38,16 @@ const TrackrNavbar = (props) => {
                 <div>
                 <Nav className="mr-auto" navbar style={{fontSize: "14px"}}>
                   <NavItem>
-                    <NavLink  tag={Link} to="/home">Home</NavLink>
+                    <NavLink tag={Link} to="/home">Home</NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink  tag={Link} to="/projects">Projects</NavLink>
+                    <NavLink tag={Link} to="/projects">Projects</NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink  tag={Link} to="/settings">Settings</NavLink>
+                    <NavLink tag={Link} to="/settings">Settings</NavLink>
                   </NavItem>
-                  {/* <UncontrolledDropdown nav inNavbar>
-                    <DropdownToggle nav caret>
-                      Account
-                    </DropdownToggle>
-                    <DropdownMenu right>
-                      <DropdownItem>
-                        Profile
-                      </DropdownItem>
-                      <DropdownItem>
-                        Friends
-                      </DropdownItem>
-                      <DropdownItem divider />
-                      <DropdownItem>
-                        Settings
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </UncontrolledDropdown> */}
                   <NavItem>
-                    <NavLink to="/">Logout</NavLink>
+                    <NavLink tag={Link} to="/">Logout</NavLink>
                   </NavItem>
                 </Nav>
                 </div>

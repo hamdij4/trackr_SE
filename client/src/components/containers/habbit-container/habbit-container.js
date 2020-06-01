@@ -23,8 +23,9 @@ function HabbitContainer(props) {
     const [emptyTasks, setEmptyTasks] = React.useState(false);
     const [refresh, setRefresh] = useState(false);
 
-    useEffect(async() => {  
-        Axios.get('/user/habbits', { headers : {'auth' : localStorage.getItem("token")}})
+    const fetchData = async () => {
+
+        await Axios.get('/user/habbits', { headers : {'auth' : localStorage.getItem("token")}})
         .then(res => {
             setTaskList(res.data.habbits)
             if(res.data.habbits.length == 0){
@@ -38,8 +39,12 @@ function HabbitContainer(props) {
         .finally( () => {
             setIsLoaded(true)
         })
-    }, [refresh])
+    }
 
+    useEffect(() => {  
+        fetchData();
+    }, [refresh])
+    console.log("habbit", refresh)
     const handleExpandClick = () => {
         setExpanded(!expanded);
       };
@@ -57,7 +62,7 @@ function HabbitContainer(props) {
 )
     return (
         <>
-                { openModal ? (<EditModal isOpen={openModal} setOpen={setOpenModal} type={0} data={emptyModel} refresh={refresh} setRefresh={setRefresh} new={true}></EditModal>) : (null) }
+            { openModal ? (<EditModal isOpen={openModal} setOpen={setOpenModal} type={0} data={emptyModel} new={true} refresh={refresh} setRefresh={setRefresh}></EditModal>) : (null) }
 
 
                         <Card variant="outlined" className="view-card">

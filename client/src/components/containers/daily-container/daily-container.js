@@ -23,8 +23,8 @@ function DailyContainer(props) {
     const [emptyTasks, setEmptyTasks] = React.useState(false);
     const [refresh, setRefresh] = useState(false);
 
-    useEffect( () => {  
-        Axios.get('/user/dailies', { headers : {'auth' : localStorage.getItem("token")}})
+    const fetchData = async() => {
+        await Axios.get('/user/dailies', { headers : {'auth' : localStorage.getItem("token")}})
         .then(res => {
             setTaskList(res.data.dailies)
             if(res.data.dailies.length == 0){
@@ -38,7 +38,12 @@ function DailyContainer(props) {
         .finally( () => {
             setIsLoaded(true)
         })
+    }
+
+    useEffect(() => {  
+        fetchData();
     }, [refresh])
+    console.log("daily", refresh)
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -61,7 +66,7 @@ const DailyCards = taskList.map((model) =>{
   )
     return (
         <>
-                { openModal ? (<EditModal isOpen={openModal} setOpen={setOpenModal} type={2} data={emptyModel} refresh={refresh} setRefresh={setRefresh} new={true}></EditModal>) : (null) }
+            { openModal ? (<EditModal isOpen={openModal} setOpen={setOpenModal} type={2} data={emptyModel} new={true} refresh={refresh} setRefresh={setRefresh}></EditModal>) : (null) }
 
                         <Card variant="outlined" className="view-card">
                             <CardHeader  className="daily-card-title" >

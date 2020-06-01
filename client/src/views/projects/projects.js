@@ -221,7 +221,7 @@ function ProjectScreen() {
                                     fontWeight:"300"}}>
                                         History </span>
                                 </CardHeader>
-                            <CardContent >
+                            <CardContent className="scrolly-boi">
                                 { emptyDaily ? null : allDaily }
                                 { emptyTask ? null : allTasks }
                                 { empptyHabbit ? null : allHabbit }
@@ -236,7 +236,7 @@ function ProjectScreen() {
                                     fontWeight:"300"}}>
                                         Archived </span>
                                 </CardHeader>
-                            <CardContent >
+                            <CardContent className="scrolly-boi">
                                 { emptyDaily ? null : archivedDaily }
                                 { emptyTask ? null : archivedTask }
                                 { empptyHabbit ? null : archivedHabbit }
@@ -251,7 +251,7 @@ function ProjectScreen() {
                                     fontWeight:"300"}}>
                                         Finished </span>
                                 </CardHeader>
-                            <CardContent >
+                            <CardContent className="scrolly-boi">
                                 { emptyDaily ? null : finishTask }
                                 { emptyTask ? null : finishDaily }
                             </CardContent>

@@ -33,3 +33,7 @@
     color: gray;
     font-size: 12px;
 }
+
+.scrolly-boi{
+    overflow-y: auto !important;
+}
