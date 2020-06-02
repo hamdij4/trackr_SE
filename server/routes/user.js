@@ -110,8 +110,8 @@ module.exports = (router, mongoose, jwt, config) => {
             { $set:{
                 username: req.body.name,
                 description: req.body.description,
-                password: req.body.project,
-                email: req.body.due
+                password: req.body.password,
+                email: req.body.email
             }
             }, {useFindAndModify: true}, (error, docs) => {
             if(error){
