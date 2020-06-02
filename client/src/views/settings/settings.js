@@ -24,7 +24,7 @@ class SettingsScreen extends Component {
             password: "",
             rePassword: ""
         }
-        this.handleSubmit = this.handleSubmit.bind(this)
+        // this.handleSubmit = this.handleSubmit.bind(this)
     }
 
 
@@ -70,43 +70,24 @@ rePasswordHandler = (event) => {
     })
 }
 
-handleSubmit = (event) => {
-    alert(`$(this.state.username)`)
-    console.log(this.state)
-    this.setState({
-        username: "",
-        firstName: "",
-        lastName: "",
-        password: "",
-        rePassword: ""
-    })
-    event.preventDefault();
-}
+      submit = async() => {
+          let model = {
+            for: localStorage.getItem('user'),
+            name: this.state.username,
+            description: this.state.description,
+            password: this.state.password,
+            email: this.state.firstName
+          }
+         await Axios.post('/user/editSettings', model)
+            .then(res => {
+                alert("success!")
+            })
 
-//      const [settings, setSettings] = useState({
-//          email : "",
-//         password: "",
-//         username : ""
-//      })
+            .catch(error => {
+            console.log(error)
+            })
+   }
 
-//      const login = async() => {
-//          await Axios.post('/authenticate', loginInfo)
-//         .then(res => {
-//             localStorage.setItem('token', res.data.jwt);
-//            localStorage.setItem('type', res.data.type);
-//             localStorage.setItem('user', res.data.user)
-//             setLoggedIn(true);
-//          })
-
-//          .catch(error => {
-//            console.log(error)
-//          })
-//    }
-
-//        const handleInputField = useCallback(event => {
-//          setLoginInfo({...loginInfo, [event.target.name] : event.target.value})
-//        })
-  
     render() {
         return (
 
@@ -114,32 +95,38 @@ handleSubmit = (event) => {
 
             <>
             <div className="settings-container, body, view-holder">
-                <form className="input" onSubmit = {this.handleSubmit}>
+                <form className="input">
                     <h1 className="h1">User Settings</h1>
  
                         <label className="settings-container, input">Edit username
-                            <input className="input" type="text" value = {this.state.username} onChange = {this.state.usernameHandler} placeholder = "Edit username"/>
+                            <input className="input" type="text" 
+                            value = {this.state.username} onChange = {this.usernameHandler} placeholder = "Edit username"/>
                                 </label><br />
                                      
 
-                        <label className="settings-container, input">Edit name
-                            <input className="input" type="text" value = {this.state.firstName} onChange = {this.state.firstNameHandler} placeholder = "Edit name"/>
+                        <label className="settings-container, input">Edit email
+                            <input className="input" type="text" 
+                            value = {this.state.firstName} onChange = {this.firstNameHandler} placeholder = "Edit name"/>
                                 </label><br />
                                     
                                                 
                         <label className="settings-container, input">Edit surname 
-                            <input className="input" type="text" value = {this.state.lastName} onChange = {this.state.lastNameHandler} placeholder = "Edit surname"/>
+                            <input className="input" type="text" 
+                            value = {this.state.lastName} onChange = {this.lastNameHandler} placeholder = "Edit surname"/>
                                 </label><br />
                                     
 
                         <label className="settings-container, input">Edit password
-                            <input className="input" type="text" value = {this.state.password} onChange = {this.state.passwordHandler} placeholder = "New password"/>
+                            <input className="input" type="text" 
+                            value = {this.state.password} onChange = {this.passwordHandler} placeholder = "New password"/>
                                 </label><br />
                                     
                         <label className="settings-container">Re-type password
-                            <input className="input" type="text" value = {this.state.rePassword} onChange = {this.state.rePasswordHandler} placeholder = "Re-type password"/>
+                            <input className="input" type="text" 
+                            value = {this.state.rePassword} onChange = {this.rePasswordHandler} placeholder = "Re-type password"/>
                                 </label><br />  
-                        <input className="input" type="submit" value="Save" />    
+                        <input className="input" type="button" 
+                        onClick={ () => { this.submit() } } value="Save" />    
                  </form>
         </div>
         </>

@@ -103,6 +103,30 @@ module.exports = (router, mongoose, jwt, config) => {
             }
         })
     })
+
+    router.post('/editSettings', (req, res) => {
+        
+        User.findOneAndUpdate({username: req.body.for}, 
+            { $set:{
+                username: req.body.name,
+                description: req.body.description,
+                password: req.body.project,
+                email: req.body.due
+            }
+            }, {useFindAndModify: true}, (error, docs) => {
+            if(error){
+                console.log(getDate(), " Error editing user: ", error)
+                res.status(401)
+                res.send({response: 'FAIL', reason: 'error'})
+            }
+            if (docs) {
+                console.log(getDate(), "Edited user : ", req.body.name)
+                res.status(200)
+                res.send({response: 'OK'})
+            }
+        })
+    })
+
     router.post('/editTask', (req, res) => {
         console.log(req.body)
         Task.findOneAndUpdate({_id: req.body._id}, 

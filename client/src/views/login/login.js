@@ -47,15 +47,16 @@ function LoginScreen() {
       })
       const handleInputField = useCallback(event => {
         setLoginInfo({...loginInfo, [event.target.name] : event.target.value})
+        console.log(loginInfo)
       })
 
       const register = async () => {
         let model = {
-          username: registerInfo.username,
+          username: registerInfo.username_register,
           email: registerInfo.email,
           name: registerInfo.name,
           surname: registerInfo.surname,
-          password: registerInfo.password
+          password: registerInfo.password_register
         }
         await axios.post('/registration', model)
           .then(res => {
