@@ -1,0 +1,121 @@
+.view-container{
+    background-color: #f8f8f8;
+    min-height: 100vh;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-title{
+    height:  30vh;
+    padding-left: 30px;
+}
+.welcome-overview-column{
+    display: flex;
+    justify-content: start;
+    align-content: center;
+    flex-direction: column;
+}
+.landing-holder{
+    max-width: 80%;
+}
+@media only screen and (min-width: 1366px) {
+    .landing-holder{
+        max-width: 90% !important;
+    }
+} 
+@media only screen and (max-width: 1365px) {
+    .landing-holder{
+        max-width: 100%  !important;
+    }
+    .greetings{
+    }
+} 
+.task-container{
+    height: 70vh;
+}
+
+.view-card{
+    height: 100%;
+    background-color: #f1f1f1 !important;
+}
+
+.task-card{
+    margin-top: 8px;
+    margin-bottom: 8px;
+    background-color: ghostwhite !important;
+}
+.welcome-text{
+    font-size: 28px;
+    font-weight: 200;
+    margin-right: 12px;
+}
+.greetings{
+    font-size: 28px;
+    font-weight: 200;
+    margin-right: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.greetings-name{
+    font-size: 58px;
+    font-weight: 500;
+    margin-right: 12px;
+}
+
+.points-progress-text{
+    font-size: 22px;
+    font-weight: 300;
+    /* margin-left: 100px; */
+}
+.stats-title{
+    font-size: 22px;
+}
+.stats-text{
+    font-size: 36px;
+    font-weight: 400;
+    color: gray;
+}
+.stats-overview-column{
+    display: flex;
+    justify-content: start;
+    align-content: center;
+    flex-direction: column;
+    color: lightgray;
+    font-weight: 300;
+}
+.habbit-stats{
+    background-color: #F3BF71;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    min-height: 35px;
+    min-width: 70px;
+}
+.daily-stats{
+    background-color: #95CCA4;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    min-height: 35px;
+    min-width: 70px;
+}
+.task-stats{
+    background-color: #C9A2CA;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    min-height: 35px;
+    min-width: 70px;
+}
+
+@media only screen and (max-width: 780px) {
+    .stats-overview-column{
+        display: none;
+    }
+    .remove-mobile{
+        display: none !important;
+    }
+}
