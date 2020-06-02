@@ -98,7 +98,7 @@ app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
-app.listen(port, () => {
+app.listen(process.env.PORT || 8080 , () => {
     console.log("Server.js is on PORT: ", port);
 })
 
