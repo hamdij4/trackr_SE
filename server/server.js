@@ -8,16 +8,16 @@ app.use(bodyParser.json())
 
 console.log(port, process.env.HEROKU)
 
-let config;
-if (!process.env.HEROKU) {
-    config = require('./config');
-}
+// let config;
+// if (!process.env.HEROKU) {
+//     config = require('./config');
+// }
 
 var mongoose = require('mongoose');
-mongoose.connect(process.env.DB_URL || config.DB_URL, {useNewUrlParser: true});
+mongoose.connect(process.env.DB_URL , {useNewUrlParser: true});
 
 let user_router = express.Router()
-require('./routes/user.js')(user_router, mongoose, jwt, config);
+require('./routes/user.js')(user_router, mongoose, jwt);
 app.use('/user', user_router);
 
 var User = require("./models/user");

@@ -1,4 +1,4 @@
-module.exports = (router, mongoose, jwt, config) => {
+module.exports = (router, mongoose, jwt) => {
 
     var User = require("../models/user");
     var Task = require("../models/task");
@@ -34,7 +34,7 @@ module.exports = (router, mongoose, jwt, config) => {
         var token = req.headers["auth"]
         console.log(token)
         if (token){
-            var decoded = jwt.verify(token, config.JWT_SECRET)
+            var decoded = jwt.verify(token, process.env.JWT_SECRET)
             console.log(decoded)
             Task.find({user : decoded.id, archived : false}, (error, docs) => {
                 if(error){
@@ -59,7 +59,7 @@ module.exports = (router, mongoose, jwt, config) => {
         var token = req.headers["auth"]
         console.log(token)
         if (token){
-            var decoded = jwt.verify(token, config.JWT_SECRET)
+            var decoded = jwt.verify(token, process.env.JWT_SECRET)
             console.log(decoded)
             Task.find({user : decoded.id}, (error, docs) => {
                 if(error){
@@ -198,7 +198,7 @@ module.exports = (router, mongoose, jwt, config) => {
     router.get('/habbits', (req, res) => {
         var token = req.headers["auth"]
         if (token){
-            var decoded = jwt.verify(token, config.JWT_SECRET)
+            var decoded = jwt.verify(token, process.env.JWT_SECRET)
             console.log(decoded)
             Habbit.find({user : decoded.id, archived : false}, (error, docs) => {
                 if(error){
@@ -221,7 +221,7 @@ module.exports = (router, mongoose, jwt, config) => {
     router.get('/allHabbits', (req, res) => {
         var token = req.headers["auth"]
         if (token){
-            var decoded = jwt.verify(token, config.JWT_SECRET)
+            var decoded = jwt.verify(token, process.env.JWT_SECRET)
             console.log(decoded)
             Habbit.find({user : decoded.id}, (error, docs) => {
                 if(error){
@@ -353,7 +353,7 @@ module.exports = (router, mongoose, jwt, config) => {
     router.get('/dailies', (req, res) => {
         var token = req.headers["auth"]
         if (token){
-            var decoded = jwt.verify(token, config.JWT_SECRET)
+            var decoded = jwt.verify(token, process.env.JWT_SECRET)
             console.log(decoded)
             Daily.find({user : decoded.id, archived : false}, (error, docs) => {
                 if(error){
@@ -376,7 +376,7 @@ module.exports = (router, mongoose, jwt, config) => {
     router.get('/allDailies', (req, res) => {
         var token = req.headers["auth"]
         if (token){
-            var decoded = jwt.verify(token, config.JWT_SECRET)
+            var decoded = jwt.verify(token, process.env.JWT_SECRET)
             console.log(decoded)
             Daily.find({user : decoded.id}, (error, docs) => {
                 if(error){
