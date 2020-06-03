@@ -6,7 +6,7 @@ const path = require('path')
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 
-console.log(port, process.env.HEROKU)
+// console.log(port, process.env.HEROKU)
 
 // let config;
 // if (!process.env.HEROKU) {
