@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const jwt = require('jsonwebtoken')
-const port = process.env.PORT || 8080;
+// const port = process.env.PORT || 8080;
 const path = require('path')
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
@@ -99,6 +99,5 @@ app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
-app.listen(port , () => {
-    console.log("Server.js is on PORT: ", port);
-})
+const port = process.env.PORT || 8080;
+app.listen(port);
