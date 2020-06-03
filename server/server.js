@@ -6,6 +6,7 @@ const path = require('path')
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 
+console.log(port, process.env.HEROKU)
 
 let config;
 if (!process.env.HEROKU) {
@@ -98,11 +99,6 @@ app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
-app.listen(process.env.PORT || 8080 , () => {
+app.listen(port , () => {
     console.log("Server.js is on PORT: ", port);
 })
-
-getDate = () => {
-    let date = new Date(Date.now())
-    return date
-}
