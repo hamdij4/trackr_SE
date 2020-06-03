@@ -41,7 +41,7 @@ const TrackrNavbar = (props) => {
                     <NavLink tag={Link} to="/home">Home</NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink tag={Link} to="/projects">Projects</NavLink>
+                    <NavLink tag={Link} to="/projects">History</NavLink>
                   </NavItem>
                   <NavItem>
                     <NavLink tag={Link} to="/settings">Settings</NavLink>
